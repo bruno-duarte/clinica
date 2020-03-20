@@ -1,0 +1,34 @@
+{% load static %}
+<div class="nav-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                        <div class="site-branding d-flex align-items-center">
+                           <a class="d-block" href="{% url 'index' %}" rel="home"><img class="d-block" src="{% static 'images/logo.png' %}" alt="logo"></a>
+                        </div><!-- .site-branding -->
+
+                        <nav class="site-navigation d-flex justify-content-end align-items-center">
+                            <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
+                                <li class="current-menu-item"><a href="{% url 'index' %}">Início</a></li>
+                                <li><a href="{% url 'about' %}">Sobre</a></li>
+                                <li><a href="{% url 'services' %}">Serviços</a></li>
+                                <li><a href="{% url 'news' %}">Notícias</a></li>
+                                <li><a href="{% url 'contact' %}">Contato</a></li>
+
+                                <li class="call-btn button gradient-bg mt-3 mt-md-0">
+                                    <a class="d-flex justify-content-center align-items-center" href="#"><img src="{% static 'images/emergency-call.png' %}"> +34 586 778 8892</a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <div class="hamburger-menu d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div><!-- .hamburger-menu -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .nav-bar -->
+                        

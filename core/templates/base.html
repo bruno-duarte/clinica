@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+<body>
+    <header class="site-header">
+        <!-- .site-navigation -->
+            {% include 'navigation.html' %}
+        <!-- .site-navigation -->
+
+        <!-- .site-navigation -->
+            {% include 'hero.html' %}
+        <!-- .site-navigation -->
+    </header><!-- .site-header -->
+
+    {% block content %} {% endblock %}
+
+</body>
+</html>

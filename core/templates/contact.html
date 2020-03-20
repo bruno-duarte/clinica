@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+<body class="single-page">
+    <header class="site-header">
+        <!-- .site-navigation -->
+            {% include 'navigation.html' %}
+        <!-- .site-navigation -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Contato</h1>
+
+                    <div class="breadcrumbs">
+                        <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                            <li><a href="#">Início</a></li>
+                            <li>Contato</li>
+                        </ul>
+                    </div><!-- .breadcrumbs -->
+
+                </div>
+            </div>
+        </div>
+
+        <img class="header-img" src="{% static 'images/contact-bg.png' %}" alt="">
+    </header><!-- .site-header -->
+
+    <div class="contact-page-short-boxes">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="contact-info h-100">
+                        <h2 class="d-flex align-items-center">Contato</h2>
+
+                        <ul class="p-0 m-0">
+                            <li><span>End.:</span>Mitlton Str. 26-27 London UK</li>
+                            <li><span>Telefone:</span>+53 345 7953 32453</li>
+                            <li><span>Email:</span>seumail@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 mt-5 mt-lg-0">
+                    <div class="opening-hours h-100">
+                        <h2 class="d-flex align-items-center">Funcionamento</h2>
+
+                        <ul class="p-0 m-0">
+                            <li>Segunda - Quinta <span>8.00 - 19.00</span></li>
+                            <li>Sexta <span>8.00 - 18.30</span></li>
+                            <li>Sábado <span>9.30 - 17.00</span></li>
+                            <li>Domingo <span>9.30 - 15.00</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 mt-5 mt-lg-0">
+                    <div class="emergency-box h-100">
+                        <h2 class="d-flex align-items-center">Emergência</h2>
+
+                        <div class="call-btn text-center">
+                            <a class="d-flex justify-content-center align-items-center button gradient-bg" href="#"><img src="{% static 'images/emergency-call.png' %}"> +34 586 778 8892</a>
+                        </div>
+
+                        <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Donec males uada lorem maximus mauris sceler isque, at rutrum nulla.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Entrar em Contato</h2>
+                </div>
+
+                <div class="col-12  col-md-4">
+                    <input type="text" placeholder="Nome">
+                </div><!-- col-4 -->
+
+                <div class="col-12 col-md-4">
+                    <input type="email" placeholder="E-mail">
+                </div><!-- col-6 -->
+
+                <div class="col-12 col-md-4">
+                    <input type="text" placeholder="Assunto">
+                </div>
+
+                <div class="col-12">
+                    <textarea name="name" rows="12" cols="80" placeholder="Mensagem"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <input type="submit" name="" value="Enviar" class="button gradient-bg">
+                </div>
+            </div><!-- row -->
+        </div>
+    </div><!-- contact-form -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-page-map">
+                    <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=university of san francisco&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                </div><!-- map -->
+            </div>
+        </div>
+    </div>
+
+    {% include 'subscribe.html' %}
+
+    {% include 'footer.html' %}
+
+</body>
+</html>
