@@ -1,5 +1,6 @@
 {% load static %}
 <footer class="site-footer" style="background: url('{% static 'images/footer-bg.png' %}') no-repeat center #fff;">
+        <div>
         <div class="footer-widgets">
             <div class="container">
                 <div class="row">
@@ -22,7 +23,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             <ul class="p-0 m-0">
                                 <li><span>End.:</span>Mitlton Str. 26-27 London UK</li>
                                 <li><span>Telefone:</span>+53 345 7953 32453</li>
-                                <li><span>Email:</span>seumail@gmail.com</li>
+                                <li><span>Email:</span>seuemail@gmail.com</li>
                             </ul>
                         </div>
                     </div><!-- .col -->
@@ -32,19 +33,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             <h2>Links Úteis</h2>
 
                             <ul class="p-0 m-0">
-                                <li><a href="index.html">Início</a></li>
-                                <li><a href="about.html">Sobre</a></li>
-                                <li><a href="#">Especialidades</a></li>
-                                <li><a href="contact.html">Contato</a></li>
-                                <li><a href="news.html">FAQ</a></li>
-                                <li><a href="services.html">Depoimentos</a></li>
+                                <li><a href="{% url 'index' %}">Início</a></li>
+                                <li><a href="{% url 'about' %}">Sobre</a></li>
+                                <li><a href="{% url 'elements' %}">Especialidades</a></li>
+                                <li><a href="{% url 'contact' %}">Contato</a></li>
+                                <li><a href="{% url 'news' %}">FAQ</a></li>
+                                <li><a href="{% url 'services' %}">Depoimentos</a></li>
                             </ul>
                         </div><!-- .foot-links -->
                     </div><!-- .col -->
                 </div><!-- .row -->
             </div><!-- .container -->
         </div><!-- .footer-widgets -->
-    </footer><!-- .site-footer -->
+    </footer><!-- .site-footer --></div>
 
     <script type='text/javascript' src="{% static 'js/jquery.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/jquery.collapsible.min.js' %}"></script>
