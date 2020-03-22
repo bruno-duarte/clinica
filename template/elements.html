@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hello World</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="css/swiper.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="single-page elements-page">
+    <header class="site-header">
+    <div class="nav-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="site-branding d-flex align-items-center">
+                        <a class="d-block" href="index.html" rel="home"><img class="d-block" src="images/logo.png" alt="logo"></a>
+                    </div><!-- .site-branding -->
+
+                    <nav class="site-navigation d-flex justify-content-end align-items-center">
+                        <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
+                            <li class="current-menu-item"><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About us</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="news.html">News</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+
+                            <li class="call-btn button gradient-bg mt-3 mt-md-0">
+                                <a class="d-flex justify-content-center align-items-center" href="#"><img src="images/emergency-call.png"> +34 586 778 8892</a>
+                            </li>
+                        </ul>
+                    </nav><!-- .site-navigation -->
+
+                    <div class="hamburger-menu d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div><!-- .hamburger-menu -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .nav-bar -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Elements</h1>
+
+                <div class="breadcrumbs">
+                    <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                        <li><a href="#">Home</a></li>
+                        <li>Elements</li>
+                    </ul>
+                </div><!-- .breadcrumbs -->
+            </div>
+        </div>
+    </div>
+
+    <img class="header-img" src="images/elements-bg.png" alt="">
+</header><!-- .site-header -->
+
+    <div class="container">
+        <div class="row elements-wrap">
+            <div class="col-12">
+                <header class="entry-header elements-heading">
+                    <h2 class="entry-title">Buttons</h2>
+                </header>
+
+                <div class="entry-content elements-container">
+                    <a href="#" class="button gradient-bg">Read More</a>
+                    <a href="#" class="button dark">Read More</a>
+                    <a href="#" class="button">Read More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row elements-wrap">
+            <div class="col-12">
+                <header class="entry-header elements-heading">
+                    <h2 class="entry-title">Accordion & Tabs</h2>
+                </header>
+
+                <div class="entry-content elements-container">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="accordion-wrap type-accordion">
+                                <h3 class="entry-title d-flex justify-content-between align-items-center active">Elit mir congue ligula et efficitur pellentesqu<span class="arrow-r"></span></h3>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris.</p>
+                                </div>
+
+                                <h3 class="entry-title d-flex justify-content-between align-items-center">Pulvinar elit mi. Integer congue ligula et efficitur <span class="arrow-r"></span></h3>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris.</p>
+                                </div>
+
+                                <h3 class="entry-title d-flex justify-content-between align-items-center">Pellentesque pulvinar elit mi. Integer congue<span class="arrow-r"></span></h3>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="tabs">
+                                <ul class="tabs-nav d-flex  flex-wrap">
+                                    <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_1">Pellentesque pulv</li>
+                                    <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_2"> Pellentesque</li>
+                                    <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_3">Consectetur diam</li>
+                                </ul>
+
+                                <div class="tabs-container">
+                                    <div id="tab_1" class="tab-content">
+                                        <img src="images/element-thumb.jpg" alt="">
+                                        <h4>Scelerisque, at rutrum nulla</h4>
+                                        <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scel erisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus fauci bus finibus. Curabitur ut augue.</p>
+                                    </div>
+
+                                    <div id="tab_2" class="tab-content">
+                                        <img src="images/element-thumb.jpg" alt="">
+                                        <h4>Scelerisque, at rutrum nulla</h4>
+                                        <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scel erisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus fauci bus finibus. Curabitur ut augue.</p>
+                                    </div>
+
+                                    <div id="tab_3" class="tab-content">
+                                        <img src="images/element-thumb.jpg" alt="">
+                                        <h4>Scelerisque, at rutrum nulla</h4>
+                                        <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scel erisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus fauci bus finibus. Curabitur ut augue.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row elements-wrap">
+            <div class="col-12">
+                <header class="entry-header elements-heading">
+                    <h2 class="entry-title">Loaders</h2>
+                </header>
+
+                <div class="entry-content elements-container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4 offset-lg-1 col-lg-2">
+                            <div class="circular-progress-bar">
+                                <div class="circle" id="loader_1">
+                                    <strong class="d-flex justify-content-center"></strong>
+                                </div>
+
+                                <h3 class="entry-title">Donation <span>Dolor sit amet</span></h3>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="circular-progress-bar">
+                                <div class="circle" id="loader_2">
+                                    <strong class="d-flex justify-content-center"></strong>
+                                </div>
+
+                                <h3 class="entry-title">Ambition<span>Sit amet, consecte</span></h3>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="circular-progress-bar">
+                                <div class="circle" id="loader_3">
+                                    <strong class="d-flex justify-content-center"></strong>
+                                </div>
+
+                                <h3 class="entry-title">Good Luck<span>Dolor sit amet</span></h3>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="circular-progress-bar">
+                                <div class="circle" id="loader_4">
+                                    <strong class="d-flex justify-content-center"></strong>
+                                </div>
+
+                                <h3 class="entry-title">High Tech<span>Sit amet, consecte</span></h3>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                            <div class="circular-progress-bar">
+                                <div class="circle" id="loader_5">
+                                    <strong class="d-flex justify-content-center"></strong>
+                                </div>
+
+                                <h3 class="entry-title">Science<span>Dolor sit amet</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row elements-wrap">
+            <div class="col-12">
+                <header class="entry-header elements-heading">
+                    <h2 class="entry-title">Milestones</h2>
+                </header>
+
+                <div class="milestones">
+                    <div class="row flex flex-wrap justify-content-between">
+                        <div class="col-12 col-sm-6 col-lg-3 mt-5 mt-lg-0">
+                            <div class="counter-box">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <img src="images/blood-donation.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-center align-items-baseline">
+                                    <div class="start-counter" data-to="5632" data-speed="2000"></div>
+                                </div>
+
+                                <h3 class="entry-title">Blood donations</h3><!-- entry-title -->
+                            </div><!-- counter-box -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-sm-6 col-lg-3 mt-5 mt-lg-0">
+                            <div class="counter-box">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <img src="images/pacients.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-center align-items-baseline">
+                                    <div class="start-counter" data-to="23" data-speed="2000"></div>
+                                    <div class="counter-k">k</div>
+                                </div>
+
+                                <h3 class="entry-title">Pacients</h3><!-- entry-title -->
+                            </div><!-- counter-box -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-sm-6 col-lg-3 mt-5 mt-lg-0">
+                            <div class="counter-box">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <img src="images/specialities.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-center align-items-baseline">
+                                    <div class="start-counter" data-to="25" data-speed="2000"></div>
+                                </div>
+
+                                <h3 class="entry-title">Specialities</h3><!-- entry-title -->
+                            </div><!-- counter-box -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-sm-6 col-lg-3 mt-5 mt-lg-0">
+                            <div class="counter-box">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <img src="images/doctors.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-center align-items-baseline">
+                                    <div class="start-counter" data-to="723" data-speed="2000"></div>
+                                </div>
+
+                                <h3 class="entry-title">Doctors</h3><!-- entry-title -->
+                            </div><!-- counter-box -->
+                        </div><!-- .col -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row elements-wrap">
+            <div class="col-12">
+                <header class="entry-header elements-heading">
+                    <h2 class="entry-title">Icon Boxes</h2>
+                </header>
+
+                <div class="entry-content elements-container">
+                    <div class="row align-items-start">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="icon-box active">
+                                <header class="entry-header d-flex align-items-center">
+                                    <img src="images/heart-beat.png" alt="">
+
+                                    <h3 class="entry-title">Cardiology</h3>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris.</p>
+                                </div>
+
+                                <div class="entry-footer">
+                                    <a href="#">read More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4 mt-5 mt-lg-0">
+                            <div class="icon-box">
+                                <header class="entry-header d-flex align-items-center">
+                                    <img src="images/stomach.png" alt="">
+
+                                    <h3 class="entry-title">Gastroenterology</h3>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p>Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien.</p>
+                                </div>
+
+                                <div class="entry-footer">
+                                    <a href="#">read More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4 mt-5 mt-lg-0">
+                            <div class="icon-box">
+                                <header class="entry-header d-flex align-items-center">
+                                    <img src="images/blood-sample.png" alt="">
+
+                                    <h3 class="entry-title">Medical Lab</h3>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p>Lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus.</p>
+                                </div>
+
+                                <div class="entry-footer">
+                                    <a href="#">read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 120px;"></div>
+
+    <div class="subscribe-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                    <h2>Subscribe to our newsletter</h2>
+
+                    <form>
+                        <input type="email" placeholder="E-mail address">
+                        <input class="button gradient-bg" type="submit" value="Subscribe">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="foot-about">
+                            <h2><a href="#"><img src="images/logo.png" alt=""></a></h2>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien.</p>
+
+                            <p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </div><!-- .foot-about -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                        <div class="foot-contact">
+                            <h2>Contact</h2>
+
+                            <ul class="p-0 m-0">
+                                <li><span>Addtress:</span>Mitlton Str. 26-27 London UK</li>
+                                <li><span>Phone:</span>+53 345 7953 32453</li>
+                                <li><span>Email:</span>yourmail@gmail.com</li>
+                            </ul>
+                        </div>
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-4 mt-5 mt-md-0">
+                        <div class="foot-links">
+                            <h2>Usefull Links</h2>
+
+                            <ul class="p-0 m-0">
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Departments</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Testimonials</a></li>
+                            </ul>
+                        </div><!-- .foot-links -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-widgets -->
+    </footer><!-- .site-footer -->
+
+    <script type='text/javascript' src='js/jquery.js'></script>
+    <script type='text/javascript' src='js/jquery.collapsible.min.js'></script>
+    <script type='text/javascript' src='js/swiper.min.js'></script>
+    <script type='text/javascript' src='js/jquery.countdown.min.js'></script>
+    <script type='text/javascript' src='js/circle-progress.min.js'></script>
+    <script type='text/javascript' src='js/jquery.countTo.min.js'></script>
+    <script type='text/javascript' src='js/jquery.barfiller.js'></script>
+    <script type='text/javascript' src='js/custom.js'></script>
+</body>
+</html>
