@@ -2,18 +2,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 {% include 'header.html' %}
+{% if user.is_authenticated %}
+{% include 'home.html' %}
+{% else %}
 <body>
     <header class="site-header">
         <!-- .site-navigation -->
-            {% include 'navigation.html' %}
+        {% include 'navigation.html' %}
         <!-- .site-navigation -->
 
         <!-- .site-navigation -->
-            {% include 'hero.html' %}
+        {% include 'hero.html' %}
         <!-- .site-navigation -->
     </header><!-- .site-header -->
 
     {% block content %} {% endblock %}
-
 </body>
+{% endif %}
 </html>

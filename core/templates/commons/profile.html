@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+<body>
+    <h2>Atualizar Perfil</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Atualizar</button>
+        <br><br>
+        <a href="{% url 'index' %}">Voltar</a>
+    </form>
+</body>
+</html>

@@ -14,9 +14,10 @@
                                 <li><a href="{% url 'services' %}">Serviços</a></li>
                                 <li><a href="{% url 'news' %}">Notícias</a></li>
                                 <li><a href="{% url 'contact' %}">Contato</a></li>
-
-                                <li class="call-btn button gradient-bg mt-3 mt-md-0">
-                                    <a class="d-flex justify-content-center align-items-center" href="#"><img src="{% static 'images/emergency-call.png' %}"> +34 586 778 8892</a>
+                                <li>
+                                    <div class="nav-button button gradient-bg">
+                                        <a href="{% url 'login' %}">Entrar</a>
+                                    </div>
                                 </li>
                             </ul>
                         </nav>

@@ -1,5 +1,11 @@
+from django.views.generic import FormView
+from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
-from .models import Especialidade, Medico
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse_lazy
+from django.contrib import messages
+from .models import Especialidade, Medico, Paciente
+from .forms import SignUpForm, ProfileForm
 
 
 class IndexView(TemplateView):
@@ -8,6 +14,7 @@ class IndexView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.order_by('?').all()
+		context['pacientes'] = Paciente.objects.order_by('?').all().filter()[:4]
 		return context
 
 
@@ -39,4 +46,17 @@ class ServicesView(TemplateView):
 		context = super(ServicesView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.all()
 		return context
+
+
+class SignupView(CreateView):
+	form_class = SignUpForm
+	success_url = reverse_lazy('index')
+	template_name = 'commons/signup.html'
+
+
+class ProfileView(UpdateView):
+	model = Paciente
+	form_class = ProfileForm
+	success_url = reverse_lazy('index')
+	template_name = 'commons/profile.html'
 

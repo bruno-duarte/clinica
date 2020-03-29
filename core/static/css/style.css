@@ -51,6 +51,24 @@ a:hover, a:active {
     padding: 20px 0;
 }
 
+.nav-button {
+    width: 150px;
+    height: 45px;
+}
+
+.nav-bar .nav-button a {
+    text-align: center;
+    color: #fff;
+    padding-left: 0;
+    padding-bottom: 0;
+    padding-top: 2px;
+
+}
+
+.nav-bar .nav-button a:hover {
+    color: #fff;
+}
+
 /*
 # Site Branding
 --------------------------------*/
@@ -161,6 +179,7 @@ a:hover, a:active {
     line-height: 1;
     color: #404040;
     text-decoration: none;
+    outline: none;
     transition: color .35s;
 }
 
@@ -290,6 +309,11 @@ a:hover, a:active {
         width: 30px;
         margin-left: 15px;
     }
+}
+
+.signup-row {
+    top: 70px;
+    position: relative;
 }
 
 /*--------------------------------------------------------------
@@ -696,6 +720,14 @@ ul.tabs-nav .tab-nav.active {
     color: #404040;
 }
 
+.signup-box h2 {
+    background: #f0f4f8;
+}
+
+.login-box h2 {
+    background: #f0f4f8;
+}
+
 .opening-hours ul {
     list-style: none;
 }
@@ -747,7 +779,10 @@ ul.tabs-nav .tab-nav.active {
 
 .appointment-box form select,
 .appointment-box form input[type="text"],
-.appointment-box form input[type="number"] {
+.appointment-box form input[type="number"],
+.appointment-box form input[type="password"],
+.signup-box form input[type="email"],
+.signup-box form input[type="date"] {
     display: block;
     width: calc(50% - 5px);
     padding: 12px 16px ;
@@ -764,6 +799,96 @@ ul.tabs-nav .tab-nav.active {
 .appointment-box form input[type="submit"] {
     margin-top: 16px;
 }
+
+.signup-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+}
+
+.signup-box form input[type="text"],
+.signup-box form input[type="number"],
+.signup-box form input[type="password"],
+.signup-box form input[type="email"],
+.signup-box form input[type="date"] {
+    border-bottom: 1px solid #18a3eb;
+    background: transparent;
+    font-size: 16px;
+}
+
+.signup-box form input[type="submit"] {
+    margin-left: 24%; 
+}
+
+.signup-box form input[type="email"] {
+    width: 100%; 
+}
+
+.signup-box form input[type="date"] {
+    position: relative;
+    width: 50%; 
+    border: none;
+    top: 8px;
+}
+
+.signup-box form label {
+    position: relative;
+    top: 20px;
+    border: none;
+    color: #888;
+    font-style: italic;
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+}
+
+.login-box form input[type="text"], 
+.login-box form input[type="password"], 
+.login-box form input[type="submit"] {
+    width: 100%; 
+    font-size: 16px;
+    border-bottom: 1px solid #18a3eb;
+}
+
+.login-box form input[type="submit"] {
+    position: relative;
+    top: 20px;
+}
+
+.login-box form input[type="text"], 
+.login-box form input[type="password"] {
+    background: transparent;
+}
+
+.signup-box form input[type="submit"]:hover,
+.login-box form input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+.login-links {
+    padding-top: 20px;
+}
+
+.login-links a {
+    position: relative;
+    top: 20px;
+    outline: none;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+   color: #18a3eb; 
+}
+
 
 /*
 # Our Departments
@@ -1079,6 +1204,10 @@ ul.tabs-nav .tab-nav.active {
     right: 0;
     max-width: 65%;
     height: auto;
+}
+
+.site-background {
+    background: #f0f4f8;
 }
 
 /*--------------------------------------------------------------
@@ -1562,4 +1691,30 @@ ul.tabs-nav .tab-nav.active {
 
 .foot-links ul li a {
     color: #828282;
+}
+
+
+/*-------------for small device------------------*/
+@media only screen and (max-width: 900px) {
+    .signup-box form input[type="text"],
+    .signup-box form input[type="number"],
+    .signup-box form input[type="password"] {
+        width: 100%;
+    }
+    .signup-box {
+        width: 90%;
+        margin-top: 150px;
+    }
+    .signup-box form input[type="submit"] {
+        margin-left: 8%;
+    }
+    .nav-button {
+        margin-left: calc(12%);
+    }
+    .login-box {
+        width: 90%;
+    }
+    .login-box form input[type="submit"] {
+        margin-left: 8%; 
+    }
 }

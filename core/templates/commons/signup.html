@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+<body class="site-background">
+    <div class="appointment-box opening-hours signup-box">
+        <h2 class="d-flex align-items-center">Cadastre-se</h2>
+
+        <form class="d-flex flex-wrap justify-content-between" method="post" autocomplete="off">
+            {% csrf_token %}
+            <input type="hidden" id="username" name="username" placeholder="CPF" required>
+            <input type="text" id="first_name" name="first_name" placeholder="Nome" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Sobrenome" required>
+            <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+            <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
+            <input type="email" id="email" name="email" placeholder="E-mail">
+            <label for="data_nascimento">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" required>
+            <input class="input-box" type="password" id="password1" name="password1" placeholder="Senha" required>
+            <input class="input-box" type="password" id="password2" name="password2" placeholder="Confirmar" required>
+            <input class="button gradient-bg" type="submit" value="Cadastrar">
+        </form>
+    </div>
+</body>
+</html>

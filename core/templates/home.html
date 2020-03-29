@@ -1,0 +1,12 @@
+<body>
+    <h2>Home</h2>
+    <p>Seja bem-vindo a sua home page</p>
+    <p>Seu nome é - {{user.first_name}} {{user.last_name}}</p>
+    <p>Seu email é - {{user.email}}</p>
+    <br>
+    <a href="{% url 'profile' user.id %}">Editar Perfil</a>
+    <br><br>
+    <a href="{% url 'change_password' %}">Mudar Senha</a>
+    <br><br>
+    <a href="{% url 'logout' %}">Sair</a>
+</body>
