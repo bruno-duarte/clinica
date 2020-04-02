@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
 from .models import CustomUsuario, Medico, Paciente
 
 
@@ -102,10 +102,34 @@ class ProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = Paciente
+
 		fields = [
-			'username',
 			'first_name', 
 			'last_name', 
 			'email',
+			'telefone',
+			'imagem',
+			'data_nascimento'
 		]
 
+
+class PasswordChangeForm(SetPasswordForm):
+
+	class Meta:
+		model = Paciente
+
+	error_messages = dict(SetPasswordForm.error_messages, **{
+		'password_incorrect': ("A senha digitada não corresponde com sua senha atual. "
+								"Por favor, insira novamente."),
+	})
+	old_password = forms.CharField(label=("Senha Antiga"),
+									widget=forms.PasswordInput)
+
+	def clean_old_password(self):
+		old_password = self.cleaned_data["old_password"]
+		if not self.user.check_password(old_password):
+			raise forms.ValidationError(
+				self.error_messages['password_incorrect'],
+				code='password_incorrect',
+			)
+		return old_password

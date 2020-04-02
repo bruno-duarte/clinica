@@ -1,11 +1,11 @@
-from django.views.generic import FormView
 from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth import views
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import Especialidade, Medico, Paciente
-from .forms import SignUpForm, ProfileForm
+from .forms import SignUpForm, ProfileForm, PasswordChangeForm
 
 
 class IndexView(TemplateView):
@@ -59,4 +59,35 @@ class ProfileView(UpdateView):
 	form_class = ProfileForm
 	success_url = reverse_lazy('index')
 	template_name = 'commons/profile.html'
+
+
+class ChangePasswordView(views.PasswordChangeView):
+	model = Paciente
+	form_class = PasswordChangeForm
+	success_url = reverse_lazy('index')
+	template_name = 'commons/change-password.html'
+
+	def form_valid(self, form, *args, **kwargs):
+		messages.success(self.request, 'Senha alterada com sucesso.')
+		return super(ChangePasswordView, self).form_valid(form, *args, **kwargs)
+
+	def form_invalid(self, form, *args, **kwargs):
+		messages.error(self.request, 'Senha antiga não confere, ou nova senha não foi confirmada.')
+		return super(ChangePasswordView, self).form_invalid(form, *args, **kwargs)
+
+
+class PrescriptionsView(CreateView):
+	model = Paciente
+	form_class = ProfileForm
+	success_url = reverse_lazy('index')
+	template_name = 'commons/prescriptions.html'
+
+
+class MedicalRecordsView(CreateView):
+	model = Paciente
+	form_class = ProfileForm
+	success_url = reverse_lazy('index')
+	template_name = 'commons/medical-records.html'
+
+
 
