@@ -111,9 +111,9 @@
                 {% for m in medicos %}
                     <div class="col-12 col-md-6 col-lg-3">
                         <div class="medical-team-wrap">
-                            <img src="{{ m.imagem.thumb.url }}" alt="{{ m.nome }}">
+                            <img src="{{ m.imagem.thumb.url }}" alt="{{ m.get_full_name }}">
 
-                            <h4>{{ m.nome }}</h4>
+                            <h4>{{ m.get_full_name }}</h4>
                             <h5>{{ m.formacao }}</h5>
                         </div>
                     </div>
