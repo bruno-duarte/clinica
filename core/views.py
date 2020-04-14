@@ -13,6 +13,9 @@ from datetime import datetime
 
 class IndexView(TemplateView):
 	
+	model = Paciente
+	form_class = BookingForm
+	success_url = reverse_lazy('index')
 	template_name = 'index.html'
 
 	def get_context_data(self, **kwargs):
@@ -149,3 +152,17 @@ class BookingResultsView(CreateView):
 		context['horarios'] = Horario.objects.all()
 		context['consultas'] = Consulta.objects.all()
 		return context	
+
+
+class UpdateConsultaView(UpdateView):
+
+	model = Consulta
+	fields = ['estado']
+	success_url = reverse_lazy('index')
+	template_name = 'commons/booking-upd.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(UpdateConsultaView, self).get_context_data(**kwargs)
+		context['consultas'] = Consulta.objects.filter(Q(paciente__exact=self.request.user.id))
+		return context
+

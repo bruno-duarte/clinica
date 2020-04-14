@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import IndexView, AboutView, ContactView, ElementsView, NewsView, \
 	ServicesView, SignupView, ProfileView, PrescriptionsView, MedicalRecordsView, \
-    ChangePasswordView, BookingView, BookingResultsView
+    ChangePasswordView, BookingView, BookingResultsView, UpdateConsultaView
 
 
 from django.contrib.auth import views as auth_views
@@ -21,6 +21,7 @@ urlpatterns = [
     path('medical-records/<int:pk>/', MedicalRecordsView.as_view(), name='medical-records'),
     path('booking/<int:pk>/', BookingView.as_view(), name='booking'),
     path('booking-results/<int:pk>/', BookingResultsView.as_view(), name='booking-results'),
+    path('booking-upd/<int:pk>', UpdateConsultaView.as_view(), name='booking-upd'),
 
 	# Login and Logout
     path('login', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='commons/login.html'), name='login'),
