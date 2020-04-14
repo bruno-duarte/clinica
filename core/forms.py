@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
-from .models import CustomUsuario, Medico, Paciente
+from .models import CustomUsuario, Medico, Paciente, Especialidade, Consulta
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 
 class CustomUsuarioCreateForm(UserCreationForm):
@@ -85,17 +87,8 @@ class SignUpForm(UserCreationForm):
 
 	class Meta:
 		model = Paciente
-		fields = [
-			'username',
-			'first_name', 
-			'last_name', 
-			'cpf',
-			'telefone', 
-			'email', 
-			'data_nascimento', 
-			'password1', 
-			'password2', 
-		]
+		fields = [ 'username', 'first_name', 'last_name', 'cpf', 'telefone', 'email', 
+		           'data_nascimento', 'password1', 'password2', ]
 
 
 class ProfileForm(forms.ModelForm):
@@ -103,14 +96,7 @@ class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Paciente
 
-		fields = [
-			'first_name', 
-			'last_name', 
-			'email',
-			'telefone',
-			'imagem',
-			'data_nascimento'
-		]
+		fields = ['first_name', 'last_name', 'email', 'telefone', 'imagem', 'data_nascimento']
 
 
 class PasswordChangeForm(SetPasswordForm):
@@ -119,7 +105,7 @@ class PasswordChangeForm(SetPasswordForm):
 		model = Paciente
 
 	error_messages = dict(SetPasswordForm.error_messages, **{
-		'password_incorrect': ("A senha digitada não corresponde com sua senha atual. "
+		'password_incorrect': _("A senha digitada não corresponde com sua senha atual. "
 								"Por favor, insira novamente."),
 	})
 	old_password = forms.CharField(label=("Senha Antiga"),
@@ -133,3 +119,29 @@ class PasswordChangeForm(SetPasswordForm):
 				code='password_incorrect',
 			)
 		return old_password
+
+
+class BookingForm(forms.ModelForm):
+
+	data = forms.DateField()
+
+	class Meta:
+		model = Especialidade
+
+		fields = ['nome']
+
+	def clean_data(self):
+		d = self.cleaned_data['data']
+		if d < datetime.date.today():
+			raise ValidationError(_('Data inválida'))
+		return d
+
+
+class BookingResultsForm(forms.ModelForm):
+
+	class Meta:
+		model = Consulta
+
+		fields = ['data', 'hora', 'estado', 'medico', 'paciente']
+
+

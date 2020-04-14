@@ -47,13 +47,13 @@
 					<li class="nav-item dropdown has-arrow logged-item">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<span class="user-img">
-								<img class="rounded-circle" src="{% static 'images/patients/patient.jpg' %}" width="31" alt="Ryan Taylor">
+								<img class="rounded-circle" src="{{ user.imagem.url }}" width="31" alt="{{ user.get_full_name }}">
 							</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<div class="user-header">
 								<div class="avatar avatar-sm">
-									<img src="{% static 'images/patients/patient.jpg' %}" alt="User Image" class="avatar-img rounded-circle">
+									<img src="{{ user.imagem.url }}" alt="User Image" class="avatar-img rounded-circle">
 								</div>
 								<div class="user-text">
 									<h6>{{ user.get_full_name }}</h6>
@@ -101,7 +101,7 @@
 							<div class="widget-profile pro-widget-content">
 								<div class="profile-info-widget">
 									<a href="#" class="booking-doc-img">
-										<img src="{% static 'images/patients/patient.jpg' %}" alt="User Image">
+										<img src="{{ user.imagem.url }}" alt="User Image">
 									</a>
 									<div class="profile-det-info">
 										<h3>{{ user.get_full_name }}</h3>
@@ -128,6 +128,12 @@
 												<small class="unread-msg">23</small>
 											</a>
 										</li>
+										<li>
+                                            <a href="{% url 'booking' user.id %}">
+                                                <i class="fas fa-calendar-check"></i>
+                                                <span>Agendar Consulta</span>
+                                            </a>
+                                        </li>
 										<li class="active">
 											<a href="{% url 'profile' user.id %}">
 												<i class="fas fa-user-cog"></i>
@@ -170,7 +176,7 @@
 													</div>
 													<div class="upload-img">
 														<div class="change-photo-btn">
-															<span><i class="fa fa-upload"></i> Upload Imagem</span>
+															<span><i class="fa fa-upload"></i> Upload Photo</span>
 															<input id="imagem" name="imagem" type="file" class="upload">
 														</div>
 														<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>

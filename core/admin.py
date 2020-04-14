@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUsuarioCreateForm, CustomUsuarioChangeForm, MedicoCreateForm, MedicoChangeForm, \
 	PacienteCreateForm, PacienteChangeForm
-from .models import Especialidade, CustomUsuario, Medico, Paciente, Comentario
+from .models import Especialidade, CustomUsuario, Medico, Paciente, Comentario, Horario, Consulta
 
 
 @admin.register(Especialidade)
@@ -55,3 +55,15 @@ class PacienteAdmin(UserAdmin):
 @admin.register(Comentario)
 class ComentarioAdmin(admin.ModelAdmin):
 	list_display = ('texto', 'modificado')
+
+
+@admin.register(Horario)
+class HorarioAdmin(admin.ModelAdmin):
+	list_display = ('horario', )
+
+
+@admin.register(Consulta)
+class ConsultaAdmin(admin.ModelAdmin):
+	list_display = ('data', 'hora', 'estado', 'medico', 'paciente')
+
+

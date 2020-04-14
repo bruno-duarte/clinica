@@ -8,7 +8,7 @@
 
         <form class="d-flex flex-wrap justify-content-between" method="post" autocomplete="off">
             {% csrf_token %}
-            <input type="hidden" id="username" name="username" placeholder="CPF" required>
+            <input type="hidden" id="username" name="username">
             <input type="text" id="first_name" name="first_name" placeholder="Nome" required>
             <input type="text" id="last_name" name="last_name" placeholder="Sobrenome" required>
             <input type="text" id="cpf" name="cpf" placeholder="CPF" required>

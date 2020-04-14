@@ -11,7 +11,8 @@ def get_file_path(_instance, filename):
 
 
 class Base(models.Model):
-	criados = models.DateField('Criação', auto_now_add=True)
+	
+	criado = models.DateField('Criação', auto_now_add=True)
 	modificado = models.DateField('Atualização', auto_now=True)
 	ativo = models.BooleanField('Ativo', default=True)
 
@@ -20,6 +21,7 @@ class Base(models.Model):
 
 
 class Especialidade(Base):
+	
 	CHOICES = (
 		('Cardiologia', 'Cardiologia'),
 		('Cirurgia', 'Cirurgia'),
@@ -119,6 +121,7 @@ class MedicoManager(UsuarioManager):
 		return self._create_user(cpf, especialidade, formacao, password, **extra_fields)
 
 class Medico(CustomUsuario):
+	
 	especialidade = models.ForeignKey('core.Especialidade', verbose_name='Especialidade', on_delete=models.CASCADE, null=True, blank=True)
 
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'especialidade']
@@ -151,6 +154,7 @@ class PacienteManager(BaseUserManager):
 
 
 class Paciente(CustomUsuario):
+	
 	data_nascimento = models.DateField('Data de Nascimento', blank=True, null=True)
 	comentarios = models.ForeignKey('core.Comentario', verbose_name='Comentario', on_delete=models.CASCADE, null=True, blank=True)
 
@@ -178,4 +182,42 @@ class Comentario(Base):
 	def __str__(self):
 		return self.texto
 
+
+class Horario(models.Model):
+
+	CHOICES = (
+		('08h-09h', '08h-09h'),
+		('09h-10h', '09h-10h'),
+		('10h-11h', '10h-11h'),
+	)
+	horario = models.CharField('Horario', max_length=7, choices=CHOICES)
+
+	def __str__(self):
+		return self.horario
+
+	class Meta:
+		verbose_name = 'Horário'
+		verbose_name_plural = 'Horários'
+
+
+class Consulta(Base):
+	
+	CHOICES = (
+		('Agendada', 'Agendada'),
+		('Cancelada', 'Cancelada'),
+		('Espera', 'Espera'),
+		('Realizada', 'Realizada'),
+	)
+	data = models.DateField('Data da Consulta')
+	hora = models.ForeignKey('core.Horario', verbose_name='Horário', on_delete=models.CASCADE)
+	sintomas = models.TextField('Sintomas', max_length=500, null=True)
+	remedios = models.TextField('Remedios', max_length=500, null=True)
+	exames = models.TextField('Exames', max_length=500, null=True)
+	estado = models.CharField('Estado', max_length=9, choices=CHOICES, default='Agendada')
+	medico = models.ForeignKey('core.Medico', verbose_name='Médico', on_delete=models.CASCADE)
+	paciente = models.ForeignKey('core.Paciente', verbose_name='Paciente', on_delete=models.CASCADE)
+
+	class Meta:
+		verbose_name = 'Consulta'
+		verbose_name_plural = 'Consultas'
 
