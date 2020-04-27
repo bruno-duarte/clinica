@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="pt-br">
+
+<!-- Mirrored from dreamguys.co.in/demo/doccure/profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:07:04 GMT -->
+{% include 'header.html' %}
+<body class="body-white">
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+		
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2">
+						<div class="invoice-content">
+							<!-- Invoice Item -->
+							<div class="invoice-item invoice-table-wrap">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="invoice-table table">
+												<thead>
+													<tr>
+														<th>
+															<div class="col-md-6">
+																<div class="invoice-logo">
+																	<img src="{% static 'images/logo.png' %}" alt="logo">
+																</div>
+															</div>
+														</th>
+														<th class="text-center"></th>
+														<th class="text-center"></th>
+														<th class="text-right">
+															<div class="col-md-6">
+																<p class="invoice-details">
+																	<strong>Número:</strong> 00{{ consulta.id }} <br>
+																	<strong>Data:</strong> {{ consulta.data }} <br>
+																	<strong>Horário:</strong> {{ consulta.hora }} 
+																</p>
+															</div>
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Invoice Item -->
+							
+							<!-- Invoice Item -->
+							<div class="invoice-item">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="invoice-info">
+											<strong class="customer-text">Paciente</strong>
+											<div class="">
+												<div class="">
+													<p class="invoice-details invoice-details-two">{{ consulta.paciente.get_full_name }} <br>
+														35 anos
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Invoice Item -->
+
+							<!-- Invoice Item -->
+							<div class="invoice-item">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="invoice-info">
+											<strong class="customer-text">Sintomas</strong>
+											<div class="prescription-wrapper">
+												<div class="prescription-box">
+													<p class="invoice-details invoice-details-two">{{ consulta.sintomas }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Invoice Item -->
+
+							<!-- Invoice Item -->
+							<div class="invoice-item">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="invoice-info">
+											<strong class="customer-text">Medicamentos</strong>
+											<div class="prescription-wrapper">
+												<div class="prescription-box">
+													<p class="invoice-details invoice-details-two">{{ consulta.remedios }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Invoice Item -->
+
+							<!-- Invoice Item -->
+							<div class="invoice-item">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="invoice-info">
+											<strong class="customer-text">Exames</strong>
+											<div class="prescription-wrapper">
+												<div class="prescription-box">
+													<p class="invoice-details invoice-details-two">
+													{{ consulta.exames }}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Invoice Item -->
+							
+							<!-- Invoice Information -->
+							<div class="other-info">
+								<h4>Outras Informações</h4>
+								<p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed dictum ligula, cursus blandit risus. Maecenas eget metus non tellus dignissim aliquam ut a ex. Maecenas sed vehicula dui, ac suscipit lacus. Sed finibus leo vitae lorem interdum, eu scelerisque tellus fermentum. Curabitur sit amet lacinia lorem. Nullam finibus pellentesque libero.</p>
+							</div>
+							<!-- /Invoice Information -->
+
+							<div class="prescription-box"></div>
+							<div class="prescription-box"></div>
+							<div class="prescription-box"></div>
+
+							<!-- Invoice Item -->
+							<div class="invoice-item invoice-table-wrap">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="invoice-table table">
+												<thead>
+													<tr>
+														<th></th>
+														<th style="text-transform:uppercase" class="text-center" colspan="2">
+															{{ consulta.medico.get_full_name }} <br>
+															{{ consulta.medico.especialidade }}
+														</th>
+														<th class="text-right"></th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Invoice Item -->
+							
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>		
+		<!-- /Page Content -->
+	   
+	</div>
+	<!-- /Main Wrapper -->
+  
+	<!-- jQuery -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	
+	<!-- Bootstrap Core JS -->
+	<script src="{% static 'js/popper.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	
+	<!-- Custom JS -->
+	<script src="{% static 'js/script.js' %}"></script>
+	
+</body>
+
+<!-- Mirrored from dreamguys.co.in/demo/doccure/invoice-view.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:07:07 GMT -->
+</html>

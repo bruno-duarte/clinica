@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, SetPasswordForm
-from .models import CustomUsuario, Medico, Paciente, Especialidade, Consulta
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+
+from .models import CustomUsuario, Medico, Paciente, Especialidade, Consulta
 
 
 class CustomUsuarioCreateForm(UserCreationForm):
@@ -33,8 +34,13 @@ class MedicoCreateForm(UserCreationForm):
 
 	class Meta:
 		model = Medico
-		fields = {'first_name', 'last_name', 'cpf', 'imagem', 'especialidade', 'formacao'}
-		labels = {'username': 'Username/CPF', 'imagem': 'Foto', 'especialidade': 'Especialidade', 'formacao': 'Formação'}
+		fields = {
+			'first_name', 'last_name', 'cpf', 'imagem', 'especialidade', 'formacao','consultas'
+		}
+		labels = {
+			'username': 'Username/CPF', 'imagem': 'Foto', 'especialidade': 'Especialidade', 
+			'formacao': 'Formação', 'consultas' : 'Consultas'
+		}
 
 	def save(self, commit=True):
 		user = super().save(commit=False)
@@ -78,6 +84,7 @@ class PacienteChangeForm(UserChangeForm):
 
 
 class SignUpForm(UserCreationForm):
+
 	first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
 	last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
 	cpf = forms.CharField(max_length=11, help_text='O CPF é obrigatório!')
@@ -96,7 +103,8 @@ class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Paciente
 
-		fields = ['first_name', 'last_name', 'email', 'telefone', 'imagem', 'data_nascimento']
+		fields = ['first_name', 'last_name', 'email', 'telefone', 'imagem', 
+															'data_nascimento', 'is_active']
 
 
 class PasswordChangeForm(SetPasswordForm):
@@ -145,3 +153,14 @@ class BookingResultsForm(forms.ModelForm):
 		fields = ['data', 'hora', 'estado', 'medico', 'paciente']
 
 
+class UpdateAppointmentsForm(forms.ModelForm):
+
+	sintomas = forms.CharField(max_length=500)
+	remedios = forms.CharField(max_length=500, required=False, help_text='Optional.')
+	exames = forms.CharField(required=False, help_text='Optional.')
+	estado = forms.CharField(max_length=9)
+
+	class Meta:
+		model = Consulta
+
+		fields = ['sintomas', 'remedios', 'exames', 'estado']

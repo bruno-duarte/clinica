@@ -2,15 +2,15 @@
 <div class="homepage-boxes">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-3">
                     <div class="opening-hours">
                         <h2 class="d-flex align-items-center">Funcionamento</h2>
 
                         <ul class="p-0 m-0">
-                            <li>Segunda - Quinta <span>8.00 - 19.00</span></li>
-                            <li>Sexta <span>8.00 - 18.30</span></li>
-                            <li>Sábado <span>9.30 - 17.00</span></li>
-                            <li>Domingo <span>9.30 - 15.00</span></li>
+                            <li><strong>Todos os dias</strong></li>
+                            {% for h in horarios %}
+                            <li>{{ h.horario }}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                             <a class="d-flex justify-content-center align-items-center" href="#"><img src="{% static 'images/emergency-call.png' %}"> +34 586 778 8892</a>
                         </div>
 
-                        <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Donec males uada lorem maximus mauris sceler isque, at rutrum nulla.</p>
+                        <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Donec males uada lorem maximus mauris sceler isque.</p>
                     </div>
                 </div>
 

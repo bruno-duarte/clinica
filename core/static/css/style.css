@@ -832,13 +832,14 @@ ul.tabs-nav .tab-nav.active {
     width: 50%; 
     border: none;
     top: 8px;
+    color: #aaa;
 }
 
 .signup-box form label {
     position: relative;
     top: 20px;
     border: none;
-    color: #888;
+    color: #aaa;
     font-style: italic;
 }
 
@@ -1693,6 +1694,22 @@ ul.tabs-nav .tab-nav.active {
     color: #828282;
 }
 
+.body-white {
+    background: #fff;
+}
+
+.prescription-wrapper {
+    border: 1px solid #ddd;
+}
+
+.prescription-box {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    min-height: 10px;
+}
+
 /*-----------------------------------
 # Profile
 -----------------------------------*/
@@ -1788,7 +1805,6 @@ html {
     height: 100%;
 }
 body {
-    background-color: #f8f9fa;
     color: #272b41;
     font-family: "Poppins",sans-serif;
     font-size: 0.9375rem;
@@ -3573,13 +3589,8 @@ button.bg-danger:hover {
     padding: 0 15px;
     height: 60px;
 }
-.user-menu.nav > li > a:hover,
-.user-menu.nav > li > a:focus {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-.user-menu.nav > li > a:hover i,
-.user-menu.nav > li > a:focus i {
-    color: #fff;
+.user-menu.nav > li > a:hover i {
+    color: #00a;
 }
 .user-img {
     display: inline-block;
@@ -5523,7 +5534,7 @@ html.menu-opened body {
 
 .invoice-content {
     background-color: #fff;
-    border: 1px solid #f0f0f0;
+    border: 1px solid #fff;
     border-radius: 4px;
     margin-bottom: 30px;
     padding: 30px;
@@ -7912,7 +7923,176 @@ html.menu-opened body {
 }
 
 /*-----------------
-    41. Responsive
+    41. Error
+-----------------------*/
+
+.error-page {
+    align-items: center;
+    color: #1f1f1f;
+    display: flex;
+}
+.error-page .main-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+    width: 100%;
+    min-height: unset;
+}
+.error-box {
+    margin: 0 auto;
+    max-width: 480px;
+    padding: 1.875rem 0;
+    text-align: center;
+    width: 100%;
+}
+.error-box h1 {
+    color: #00d0f1;
+    font-size: 10em;
+}
+.error-box p {
+    margin-bottom: 1.875rem;
+}
+.error-box .btn {
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    min-width: 200px;
+    padding: 10px 20px;
+}
+
+.error-box a:visited {
+    color: #fff;
+}
+
+/*-----------------
+    42. Notifications
+-----------------------*/
+.notifications {
+    padding: 0;
+}
+.notifications .notification-time {
+    font-size: 12px;
+    line-height: 1.35;
+    color: #bdbdbd;
+}
+.notifications .media {
+    margin-top: 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+.notifications .media:last-child {
+    border-bottom: none;
+}
+.notifications .media a {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 2px;
+}
+.notifications .media a:hover {
+    background-color: #fafafa;
+}
+.notifications .media > .avatar {
+    margin-right: 10px;
+}
+.notifications .media-list .media-left {
+    padding-right: 8px;
+}
+.topnav-dropdown-header {
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+.topnav-dropdown-header, 
+.topnav-dropdown-footer {
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.topnav-dropdown-footer {
+    border-top: 1px solid #eee;
+}
+.topnav-dropdown-footer a {
+    display: block;
+    text-align: center;
+    color: #333;
+}
+.user-menu.nav > li > a .badge {
+    background-color: #1b5a90;
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    min-height: 15px;
+    min-width: 15px;
+    position: absolute;
+    right: 3px;
+    color: #fff;
+    top: 6px;
+}
+.user-menu.nav > li > a > i {
+    font-size: 1.5rem;
+    line-height: 60px;
+    color: #444;
+    position: absolute;
+    top: -10px;
+}
+.noti-details {
+    color: #989c9e;
+    margin-bottom: 0;
+}
+.noti-title {
+    color: #333;
+}
+.notifications .noti-content {
+    min-height: 0;
+    width: 350px;
+    overflow-y: auto;
+    position: relative;
+}
+.notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.notifications ul.notification-list > li{
+    margin-top: 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+.notifications ul.notification-list > li:last-child {
+    border-bottom: none;
+}
+.notifications ul.notification-list > li a {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 2px;
+}
+.notifications ul.notification-list > li a:hover {
+    background-color: #fafafa;
+}
+.notifications ul.notification-list > li .list-item {
+    border: 0;
+    padding: 0;
+    position: relative;
+}
+.topnav-dropdown-header .notification-title {
+    color: #333;
+    display: block;
+    float: left;
+    font-size: 14px;
+}
+.topnav-dropdown-header .clear-noti {
+    color: #f83f37;
+    float: right;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.noti-time {
+    margin: 0;
+}
+
+
+/*-----------------
+    43. Responsive
 -----------------------*/
 
 @media only screen and (min-width:768px) {

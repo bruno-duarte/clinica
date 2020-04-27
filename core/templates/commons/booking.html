@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <!DOCTYPE html> 
 <html lang="pt-br">
 
@@ -20,13 +21,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a href="index.html" class="navbar-brand logo">
+                    <a href="{% url 'index' %}" class="navbar-brand logo">
                         <img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index.html" class="menu-logo">
+                        <a href="{% url 'index' %}" class="menu-logo">
                             <img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -122,9 +123,9 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="chat.html">
-                                                <i class="fas fa-comments"></i>
-                                                <span>Mensagem</span>
+                                            <a href="{% url 'notification' user.id %}">
+                                                <i class="fas fa-bell"></i>
+                                                <span>Notificações</span>
                                                 <small class="unread-msg">23</small>
                                             </a>
                                         </li>
@@ -140,6 +141,15 @@
                                                 <span>Configurações</span>
                                             </a>
                                         </li>
+                                        {% tem_consulta user.id as consulta %}
+                                        {% if not consulta %}
+                                        <li>
+                                            <a href="{% url 'remove' user.id %}">
+                                                <i class="fas fa-trash"></i>
+                                                <span>Remover Dados</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
                                         <li>
                                             <a href="{% url 'change_password' %}">
                                                 <i class="fas fa-lock"></i>

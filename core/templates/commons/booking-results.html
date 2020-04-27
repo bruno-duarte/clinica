@@ -117,20 +117,20 @@
                             <div class="dashboard-widget">
                                 <nav class="dashboard-menu">
                                     <ul>
-                                        <li class="active">
+                                        <li>
                                             <a href="{% url 'index' %}">
                                                 <i class="fas fa-columns"></i>
                                                 <span>Painel</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="chat.html">
-                                                <i class="fas fa-comments"></i>
-                                                <span>Mensagem</span>
+                                            <a href="{% url 'notification' user.id %}">
+                                                <i class="fas fa-bell"></i>
+                                                <span>Notificações</span>
                                                 <small class="unread-msg">23</small>
                                             </a>
                                         </li>
-                                        <li>
+                                        <li class="active">
                                             <a href="{% url 'booking' user.id %}">
                                                 <i class="fas fa-calendar-check"></i>
                                                 <span>Agendar Consulta</span>
@@ -142,6 +142,15 @@
                                                 <span>Configurações</span>
                                             </a>
                                         </li>
+                                        {% tem_consulta user.id as consulta %}
+                                        {% if not consulta %}
+                                        <li>
+                                            <a href="{% url 'remove' user.id %}">
+                                                <i class="fas fa-trash"></i>
+                                                <span>Remover Dados</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
                                         <li>
                                             <a href="{% url 'change_password' %}">
                                                 <i class="fas fa-lock"></i>
@@ -213,10 +222,10 @@
                                                             <tr>
                                                                 <td class="b-right" rowspan="4">
                                                                     <h2 class="table-avatar">
-                                                                        <a href="doctor-profile.html" class="avatar avatar-sm mr-2">
+                                                                        <a href="#" class="avatar avatar-sm mr-2">
                                                                             <img class="avatar-img rounded-circle" src="{{ m.imagem.thumb.url }}" alt="Doctor Image">
                                                                         </a>
-                                                                        <a href="doctor-profile.html">Dr. {{ m.get_full_name }} <span>{{ m.especialidade }}</span></a>
+                                                                        <a href="#">Dr. {{ m.get_full_name }} <span>{{ m.especialidade }}</span></a>
                                                                     </h2>
                                                                 </td>
                                                             </tr>

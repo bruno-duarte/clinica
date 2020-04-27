@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <!DOCTYPE html> 
 <html lang="pt-br">
 
@@ -20,13 +21,13 @@
 							<span></span>
 						</span>
 					</a>
-					<a href="index.html" class="navbar-brand logo">
+					<a href="{% url 'index' %}" class="navbar-brand logo">
 						<img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Logo">
 					</a>
 				</div>
 				<div class="main-menu-wrapper">
 					<div class="menu-header">
-						<a href="index.html" class="menu-logo">
+						<a href="{% url 'index' %}" class="menu-logo">
 							<img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Logo">
 						</a>
 						<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -106,7 +107,7 @@
 									<div class="profile-det-info">
 										<h3>{{ user.get_full_name }}</h3>
 										<div class="patient-details">
-											<h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
+											<h5><i class="fas fa-birthday-cake"></i> {{ paciente.data_nascimento }}, 38 anos</h5>
 											<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
 										</div>
 									</div>
@@ -122,9 +123,9 @@
 											</a>
 										</li>
 										<li>
-											<a href="chat.html">
-												<i class="fas fa-comments"></i>
-												<span>Mensagem</span>
+											<a href="{% url 'notification' user.id %}">
+												<i class="fas fa-bell"></i>
+												<span>Notificações</span>
 												<small class="unread-msg">23</small>
 											</a>
 										</li>
@@ -140,6 +141,15 @@
 												<span>Configurações</span>
 											</a>
 										</li>
+										{% tem_consulta user.id as consultado %}
+                                        {% if not consultado %}
+										<li>
+											<a href="{% url 'remove' user.id %}">
+												<i class="fas fa-user-cog"></i>
+												<span>Remover Dados</span>
+											</a>
+										</li>
+										{% endif %}
 										<li>
 											<a href="{% url 'change_password' %}">
 												<i class="fas fa-lock"></i>
@@ -172,7 +182,7 @@
 											<div class="form-group">
 												<div class="change-avatar">
 													<div class="profile-img">
-														<img src="{% static 'images/patients/patient.jpg' %}" alt="User Image">
+														<img src="{{ user.imagem.thumb.url }}" alt="User Image">
 													</div>
 													<div class="upload-img">
 														<div class="change-photo-btn">
@@ -200,7 +210,7 @@
 											<div class="form-group">
 												<label>Data de Nascimento</label>
 												<div class="cal-icon">
-													<input id="data_nascimento" name="data_nascimento" type="text" class="form-control datetimepicker" value="{{ user.data_nascimento }}">
+													<input id="data_nascimento" name="data_nascimento" type="date" class="form-control datetimepicker" value="{{ paciente.data_nascimento }}">
 												</div>
 											</div>
 										</div>
@@ -273,9 +283,6 @@
 					</div>
 				</div>
 			</div>
-
-		</div>		
-		<!-- /Page Content -->
 
 		{% include 'footer.html' %}
 	
