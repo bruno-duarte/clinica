@@ -32,3 +32,13 @@ def mesmo_usuario(data, hora, estado, medico, usuario):
 		return True
 	else:
 		return False
+
+
+@register.simple_tag
+def tem_consulta(usuario):
+	consultas = Consulta.objects.filter(Q(paciente__exact=usuario))
+	if len(consultas) > 0:
+		return True
+	else:
+		return False
+

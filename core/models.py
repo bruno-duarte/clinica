@@ -1,13 +1,59 @@
-from django.db import models
+from __future__ import unicode_literals
 from stdimage.models import StdImageField
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from datetime import datetime
 import uuid
+
+from django.db import models
+from django.core.cache import cache
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.db.models.signals import post_save
+from django.db.models import Q
 
 
 def get_file_path(_instance, filename):
 	ext = filename.split('.')[-1]
 	filename = '{}.{}'.format(uuid.uuid4(), ext)
 	return filename
+
+
+class SingletonModel(models.Model):
+
+	class Meta:
+		abstract = True
+
+	def delete(self, *args, **kwargs):
+		pass
+
+	def set_cache(self):
+		cache.set(self.__class__.__name__, self)
+
+	def save(self, *args, **kwargs):
+		self.pk = 1
+		super(SingletonModel, self).save(*args, **kwargs)
+
+		self.set_cache()
+
+	@classmethod
+	def load(cls):
+		if cache.get(cls.__name__) is None:
+			obj, created = cls.objects.get_or_create(pk=1)
+			if not created:
+				obj.set_cache()
+		return cache.get(cls.__name__)
+
+
+class SiteSettings(SingletonModel):
+
+	endereco = models.CharField(max_length=255, default='Mitlton Str. 26-27 London UK')
+	telefone = models.CharField(max_length=255, default='+5585999999999')
+	email = models.EmailField(max_length=255, default='clinica@email.com')
+	support = models.EmailField(default='support@email.com')
+	account_sid = models.CharField(max_length=255, default='ACbcad883c9c3e9d9913a715557dddff88')
+	auth_token = models.CharField(max_length=255, default='abd4d45dd57dd79b86dd51df2e2a6cd7')
+
+	class Meta:
+		verbose_name = 'Configuração do Site'
+		verbose_name_plural = 'Configurações do Site'
 
 
 class Base(models.Model):
@@ -35,8 +81,9 @@ class Especialidade(Base):
 	)
 	nome = models.CharField('Especialidade', max_length=50, choices=CHOICES)
 	descricao = models.TextField('Descricao', max_length=200)
-	icone = StdImageField('Icone', upload_to=get_file_path, \
-		variations={'thumb': {'width': 41, 'height': 49, 'crop': True}})
+	icone = StdImageField('Icone', upload_to=get_file_path, variations={
+		'thumb': {'width': 41, 'height': 49, 'crop': True}
+	})
 
 	class Meta:
 		verbose_name = 'Especialidade'
@@ -46,14 +93,61 @@ class Especialidade(Base):
 		return self.nome
 
 
+class Consulta(Base):
+	
+	CHOICES = (
+		('Agendada', 'Agendada'),
+		('Cancelada', 'Cancelada'),
+		('Espera', 'Espera'),
+		('Realizada', 'Realizada'),
+		('Expirada', 'Expirada'),
+		('Análise', 'Análise'),
+	)
+	data = models.DateField('Data da Consulta')
+	hora = models.ForeignKey(
+		'core.Horario', 
+		verbose_name='Horário', 
+		on_delete=models.CASCADE
+	)
+	sintomas = models.TextField('Sintomas', max_length=500, null=True, blank=True)
+	remedios = models.TextField('Remedios', max_length=500, null=True, blank=True)
+	exames = models.TextField('Exames', max_length=500, null=True, blank=True)
+	estado = models.CharField('Estado', max_length=9, choices=CHOICES, default='Agendada')
+	medico = models.ForeignKey(
+		'core.Medico', 
+		verbose_name='Médico', 
+		on_delete=models.CASCADE,
+		related_name='medico_consulta_set'
+	)
+	paciente = models.ForeignKey(
+		'core.Paciente', 
+		verbose_name='Paciente', 
+		on_delete=models.CASCADE,
+		related_name='paciente_consulta_set'
+	)
+	motivo_cancelamento = models.TextField(
+		'Motivo do Cancelamento', max_length=100, null=True, blank=True
+	)
+
+	class Meta:
+		verbose_name = 'Consulta'
+		verbose_name_plural = 'Consultas'
+
+
 class Pessoa(AbstractUser):
 
 	is_staff = models.BooleanField('Membro da equipe', default=False)
 	cpf = models.CharField('CPF', max_length=15, unique=True)
 	telefone = models.CharField('Telefone', max_length=15)
 	email = models.EmailField('E-mail', unique=True)
-	imagem = StdImageField('Imagem', upload_to=get_file_path, variations={'thumb': {'width': 264, 'height': 276, 'crop': True}})
+	imagem = StdImageField('Imagem', upload_to=get_file_path, variations={
+		'thumb': {'width': 264, 'height': 276, 'crop': True}
+	})
 	formacao = models.CharField('Formacao', max_length=30, default='')
+
+	class Meta:
+		abstract = True
+
 
 class UsuarioManager(BaseUserManager):
 	
@@ -102,7 +196,9 @@ class MedicoManager(UsuarioManager):
 	def _create_user(self, cpf, password, especialidade, formacao, **extra_fields):
 		if not cpf and not especialidade:
 			raise ValueError('CPF e especialidade obrigatórios!')
-		user = self.model(cpf=cpf, especialidade=especialidade, formacao=formacao, username=cpf, **extra_fields)
+		user = self.model(
+			cpf=cpf, especialidade=especialidade, formacao=formacao, username=cpf, **extra_fields
+		)
 		user.set_password(password)
 		user.save(using=self._db)
 		return user
@@ -122,7 +218,14 @@ class MedicoManager(UsuarioManager):
 
 class Medico(CustomUsuario):
 	
-	especialidade = models.ForeignKey('core.Especialidade', verbose_name='Especialidade', on_delete=models.CASCADE, null=True, blank=True)
+	especialidade = models.ForeignKey(
+		'core.Especialidade', 
+		verbose_name='Especialidade', 
+		on_delete=models.CASCADE, 
+		null=True, 
+		blank=True
+	)
+	consultas = models.ManyToManyField(Consulta, related_name='consultas_medico_set')
 
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'especialidade']
 
@@ -155,8 +258,15 @@ class PacienteManager(BaseUserManager):
 
 class Paciente(CustomUsuario):
 	
-	data_nascimento = models.DateField('Data de Nascimento', blank=True, null=True)
-	comentarios = models.ForeignKey('core.Comentario', verbose_name='Comentario', on_delete=models.CASCADE, null=True, blank=True)
+	data_nascimento = models.DateField('Data de Nascimento', null=True, blank=True)
+	comentarios = models.ForeignKey(
+		'core.Comentario', 
+		verbose_name='Comentario', 
+		on_delete=models.CASCADE, 
+		null=True, 
+		blank=True
+	)
+	consultas = models.ManyToManyField(Consulta, related_name='consultas_paciente_set')
 
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'data_nascimento']
 
@@ -173,7 +283,9 @@ class Paciente(CustomUsuario):
 class Comentario(Base):
 	
 	texto = models.TextField('Comentario', max_length=500)
-	usuario = models.ForeignKey('core.Paciente', verbose_name='Paciente', on_delete=models.CASCADE, default='')
+	usuario = models.ForeignKey(
+		'core.Paciente', verbose_name='Paciente', on_delete=models.CASCADE
+	)
 
 	class Meta:
 		verbose_name = 'Comentário'
@@ -200,24 +312,63 @@ class Horario(models.Model):
 		verbose_name_plural = 'Horários'
 
 
-class Consulta(Base):
-	
-	CHOICES = (
-		('Agendada', 'Agendada'),
-		('Cancelada', 'Cancelada'),
-		('Espera', 'Espera'),
-		('Realizada', 'Realizada'),
-	)
-	data = models.DateField('Data da Consulta')
-	hora = models.ForeignKey('core.Horario', verbose_name='Horário', on_delete=models.CASCADE)
-	sintomas = models.TextField('Sintomas', max_length=500, null=True)
-	remedios = models.TextField('Remedios', max_length=500, null=True)
-	exames = models.TextField('Exames', max_length=500, null=True)
-	estado = models.CharField('Estado', max_length=9, choices=CHOICES, default='Agendada')
-	medico = models.ForeignKey('core.Medico', verbose_name='Médico', on_delete=models.CASCADE)
-	paciente = models.ForeignKey('core.Paciente', verbose_name='Paciente', on_delete=models.CASCADE)
+class Notificacao(models.Model):
 
-	class Meta:
-		verbose_name = 'Consulta'
-		verbose_name_plural = 'Consultas'
+	criada = models.DateField('Criação', auto_now_add=True)
+	paciente = models.ForeignKey(
+		'core.Paciente',
+		verbose_name='Notificação',
+		on_delete=models.CASCADE, 
+		related_name='paciente_notificacao_set'
+	)
+	mensagem = models.TextField('Mensagem', max_length=500, null=True, blank=True)
+	consulta = models.ForeignKey(
+		'core.Consulta',
+		verbose_name='Consulta',
+		on_delete=models.CASCADE, 
+		null=True, 
+		blank=True,
+		related_name='consulta_notificacao_set'
+	)
+	lida = models.BooleanField(default=False)
+
+
+def cria_notificacao(sender, instance, **kwargs):
+	if instance.estado == 'Cancelada':
+		query = Consulta.objects.filter(
+			Q(data__exact=instance.data),
+			Q(hora__exact=instance.hora)
+		)
+		if query.count() > 0:
+			dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui','Sex', 'Sab']
+			meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 
+		         'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
+			dia = int(instance.data.strftime("%w"))
+			data = dias_semana[dia] + ', ' + str(instance.data.day) + ' de ' + \
+				meses[instance.data.month-1]
+		
+			notificacao = Notificacao(
+				paciente=query[0].paciente, 
+				mensagem=f'A vaga para {data} e horario {instance.hora} foi aberta, ',
+				consulta = query[0]
+			)
+			notificacao.save()
+
+
+def atualiza_consultas_medico(sender, instance, **kwargs):
+	m = Medico.objects.get(pk=instance.medico.id)
+	m.consultas.add(instance)
+
+
+def marca_como_lida(sender, instance, **kwargs):
+	if instance.estado == 'Agendada':
+		notificacao = Notificacao.objects.get(consulta=instance)
+		if notificacao:
+			notificacao.lida = True
+			notificacao.save(update_fields=['lida'])
+
+
+post_save.connect(cria_notificacao, sender=Consulta)
+post_save.connect(atualiza_consultas_medico, sender=Consulta)
+post_save.connect(marca_como_lida, sender=Consulta)
 

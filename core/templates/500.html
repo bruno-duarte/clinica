@@ -1,4 +1,57 @@
 {% load static %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/error-404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:07:52 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Error 500</title>
+	
+	<!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+	
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	
+	<!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	
+	<!-- Feathericon CSS -->
+    <link rel="stylesheet" href="{% static 'css/feathericon.min.css' %}">
+	
+	<!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+	
+	<!--[if lt IE 9]>
+		<script src="{% static 'js/html5shiv.min.js"></script>
+		<script src="{% static 'js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="error-page">
+	<!-- Main Wrapper -->
+    <div class="main-wrapper">
+		
+		<div class="error-box">
+			<h1>500</h1>
+			<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Erro de processamento!</h3>
+			<p class="h4 font-weight-normal">Infelizmente não foi possível processar a requisição.</p>
+			<a href="{% url 'index' %}" class="btn btn-primary">Voltar à Página Inicial</a>
+		</div>
+	
+    </div>
+	<!-- /Main Wrapper -->
+	
+	<!-- jQuery -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	
+	<!-- Bootstrap Core JS -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+	
+	<!-- Custom JS -->
+	<script  src="{% static 'js/script.js' %}"></script>
+</body>
 
-{% endblock %}
+<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/error-404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:07:52 GMT -->
+</html>

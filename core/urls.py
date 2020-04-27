@@ -1,11 +1,14 @@
 from django.urls import path, include
-from .views import IndexView, AboutView, ContactView, ElementsView, NewsView, \
-	ServicesView, SignupView, ProfileView, PrescriptionsView, MedicalRecordsView, \
-    ChangePasswordView, BookingView, BookingResultsView, UpdateConsultaView
-
-
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
+
+from .views import (
+    IndexView, AboutView, ContactView, ElementsView, NewsView, 
+    ServicesView, SignupView, ProfileView, PrescriptionsView, MedicalRecordsView, 
+    ChangePasswordView, BookingView, BookingResultsView, CancelConsultaView, 
+    UpdateConsultaView, AppointmentsView, AllAppointmentsView, ReportView, 
+    RemoveDataView, NotificationView, ConfirmView
+)
 
 
 urlpatterns = [
@@ -21,13 +24,19 @@ urlpatterns = [
     path('medical-records/<int:pk>/', MedicalRecordsView.as_view(), name='medical-records'),
     path('booking/<int:pk>/', BookingView.as_view(), name='booking'),
     path('booking-results/<int:pk>/', BookingResultsView.as_view(), name='booking-results'),
-    path('booking-upd/<int:pk>', UpdateConsultaView.as_view(), name='booking-upd'),
-
-	# Login and Logout
-    path('login', auth_views.LoginView.as_view(redirect_authenticated_user=True, template_name='commons/login.html'), name='login'),
+    path('cancel/<int:pk>', CancelConsultaView.as_view(), name='cancel'),
+    path('today-appointments/<int:pk>', AppointmentsView.as_view(), name='today-appointments'),
+    path('update/<int:pk>', UpdateConsultaView.as_view(), name='update'),
+    path('appointments/<int:pk>', AllAppointmentsView.as_view(), name='appointments'),
+    path('report/<int:pk>', ReportView.as_view(), name='report'),
+    path('remove/<int:pk>', RemoveDataView.as_view(), name='remove'),
+    path('notification/<int:pk>', NotificationView.as_view(), name='notification'),
+    path('confirm/<int:pk>', ConfirmView.as_view(), name='confirm'),
+    
+    path('login', auth_views.LoginView.as_view(redirect_authenticated_user=True, 
+                                                template_name='commons/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='index'), name='logout'),
 
-    # Change Password
     path(
         'change-password/',
         ChangePasswordView.as_view(
@@ -37,7 +46,6 @@ urlpatterns = [
         name='change_password'
     ),
 
-    # Forget Password
     path('password-reset/',
          auth_views.PasswordResetView.as_view(
              template_name='commons/password-reset/password_reset.html',

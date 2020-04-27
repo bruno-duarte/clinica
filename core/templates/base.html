@@ -3,7 +3,11 @@
 <html lang="pt-br">
 {% include 'header.html' %}
 {% if user.is_authenticated %}
-{% include 'home.html' %}
+	{% if user.is_staff %}
+		{% include 'home-medico.html' %}
+	{% else %}
+		{% include 'home-paciente.html' %}
+	{% endif %}
 {% else %}
 <body>
     <header class="site-header">
