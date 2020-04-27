@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+<body class="site-background">
+    <div class="container">
+        <div class="row">
+            <div class="appointment-box opening-hours login-box">
+                <h2 class="d-flex align-items-center">Entre Aqui</h2>
+
+                <form class="d-flex flex-wrap justify-content-between" method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <input type="text" for="username" id="username" name="username" placeholder="CPF" required>
+                    <input class="input-box" type="password" for="password" id="password" name="password" placeholder="Senha" required>
+                    <input class="button gradient-bg" type="submit" value="Entrar">
+                    <div class="login-links">
+                        <a href="{% url 'password_reset' %}">Esqueceu a senha?</a><br>
+                        <a href="{% url 'signup' %}">Deseja criar uma conta?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+{% if user.is_authenticated %}
+	{% if user.is_staff %}
+		{% include 'home-medico.html' %}
+	{% else %}
+		{% include 'home-paciente.html' %}
+	{% endif %}
+{% else %}
+<body>
+    <header class="site-header">
+        <!-- .site-navigation -->
+        {% include 'navigation.html' %}
+        <!-- .site-navigation -->
+
+        <!-- .site-navigation -->
+        {% include 'hero.html' %}
+        <!-- .site-navigation -->
+    </header><!-- .site-header -->
+
+    {% block content %} {% endblock %}
+</body>
+{% endif %}
+</html>

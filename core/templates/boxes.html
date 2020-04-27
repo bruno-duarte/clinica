@@ -1,0 +1,58 @@
+{% load static %}
+<div class="homepage-boxes">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="opening-hours">
+                        <h2 class="d-flex align-items-center">Funcionamento</h2>
+
+                        <ul class="p-0 m-0">
+                            <li><strong>Todos os dias</strong></li>
+                            {% for h in horarios %}
+                            <li>{{ h.horario }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                    <div class="emergency-box">
+                        <h2 class="d-flex align-items-center">Emergência</h2>
+
+                        <div class="call-btn button gradient-bg">
+                            <a class="d-flex justify-content-center align-items-center" href="#"><img src="{% static 'images/emergency-call.png' %}"> +34 586 778 8892</a>
+                        </div>
+
+                        <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Donec males uada lorem maximus mauris sceler isque.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-5 mt-5 mt-lg-0">
+                    <div class="appointment-box">
+                        <h2 class="d-flex align-items-center">Agende uma consulta</h2>
+
+                        <form class="d-flex flex-wrap justify-content-between">
+                            <select class="select-department">
+                                <option value="value1">Especialidade</option>
+                                <option value="value2">Especialidade 1</option>
+                                <option value="value3">Especialidade 2</option>
+                            </select>
+
+                            <select class="select-doctor">
+                                <option>Médico</option>
+                                <option>Médico 1</option>
+                                <option>Médico 2</option>
+                            </select>
+
+                            <input type="text" placeholder="Nome">
+
+                            <input type="number" placeholder="Telefone">
+
+                            <input class="button gradient-bg" type="submit" value="Agendar">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+{% include 'header.html' %}
+<body class="single-page">
+    <header class="site-header">
+        <!-- .site-navigation -->
+            {% include 'navigation.html' %}
+        <!-- .site-navigation -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Serviços</h1>
+
+                    <div class="breadcrumbs">
+                        <ul class="d-flex flex-wrap align-items-center p-0 m-0">
+                            <li><a href="#">Início</a></li>
+                            <li>Serviços</li>
+                        </ul>
+                    </div><!-- .breadcrumbs -->
+                </div>
+            </div>
+        </div>
+
+        <img class="header-img" src="{% static 'images/service-bg.png' %}" alt="">
+    </header><!-- .site-header -->
+
+    <div class="quality-services">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Apenas Serviços de Alta Qualidade</h2>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem ma ximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, malesuada viverra accumsan leo.</p>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo.</p>
+                        </div>
+                    </div>
+
+                    <div class="w-100 text-center mt-5">
+                        <a class="button gradient-bg" href="#">Leia Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'departments.html' %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="services-tabs">
+                    <div class="tabs">
+                        <ul class="tabs-nav d-flex flex-wrap">
+                            <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_1">Pellentesque pulvinar</li>
+                            <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_2">  Pellentesque lacinia </li>
+                            <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_3">Consectetur diam</li>
+                            <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_4">CMauris tortor</li>
+                            <li class="tab-nav d-flex justify-content-center align-items-center" data-target="#tab_5">Phasellus sit amet</li>
+                        </ul>
+
+                        <div class="tabs-container">
+                            <div id="tab_1" class="tab-content">
+                                <img src="{% static 'images/service-tab-img.png' %}" alt="">
+
+                                <h4>Scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. </h4>
+
+                                <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo. Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus</p>
+                            </div>
+
+                            <div id="tab_2" class="tab-content">
+                                <img src="{% static 'images/service-tab-img.png' %}" alt="">
+
+                                <h4>Scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. </h4>
+
+                                <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo. Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus</p>
+                            </div>
+
+                            <div id="tab_3" class="tab-content">
+                                <img src="{% static 'images/service-tab-img.png' %}" alt="">
+
+                                <h4>Scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. </h4>
+
+                                <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo. Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus</p>
+                            </div>
+
+                            <div id="tab_4" class="tab-content">
+                                <img src="{% static 'images/service-tab-img.png' %}" alt="">
+
+                                <h4>Scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. </h4>
+
+                                <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo. Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus</p>
+                            </div>
+
+                            <div id="tab_5" class="tab-content">
+                                <img src="{% static 'images/service-tab-img.png' %}" alt="">
+
+                                <h4>Scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. </h4>
+
+                                <p>Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo. Amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'subscribe.html' %}
+
+    {% include 'footer.html' %}
+</body>
+</html>

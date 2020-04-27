@@ -1,0 +1,34 @@
+{% load static %}
+<div class="our-departments" style="background: url('{% static 'images/departments-bg.jpg' %}') no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="our-departments-wrap">
+                        <h2>Nossas Especialidades</h2>
+
+                        <div class="row">
+                            {% for e in especialidades %}
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="our-departments-cont">
+                                    <header class="entry-header d-flex flex-wrap align-items-center">
+                                        <img src="{{ e.icone.thumb.url }}" alt="{{ e.nome }}">
+
+                                        <h3>{{ e.nome }}</h3>
+                                    </header>
+
+                                    <div class="entry-content">
+                                        <p>{{ e.descricao }}</p>
+                                    </div>
+
+                                    <footer class="entry-footer">
+                                        <a href="#">leia mais</a>
+                                    </footer>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

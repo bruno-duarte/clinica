@@ -1,0 +1,50 @@
+{% load static %}
+<section class="testimonial-section" style="background: url('{% static 'images/testimonial-bg.jpg' %}') no-repeat right center;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Depoimentos dos Pacientes</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Swiper -->
+        <div class="testimonial-slider">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="testimonial-bg-shape" style="background: url('{% static 'images/testimonial-content-bg.png' %}') no-repeat;">
+                            <div class="swiper-container testimonial-slider-wrap">
+                                <div class="swiper-wrapper">
+                                    {% for p in pacientes %}
+                                    <div class="swiper-slide">
+                                        <div class="entry-content" style="background: url('{% static 'images/testimonial-p-bg.png' %}') no-repeat;">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo.</p>
+                                        </div><!-- .entry-content -->
+
+                                        <div class="entry-footer">
+                                            <figure class="user-avatar">
+                                                <img src="{{ p.imagem.thumb.url }}" alt="">
+                                            </figure><!-- .user-avatar -->
+
+                                            <h3 class="testimonial-user">{{ p.get_full_name }} <span>{{ p.formacao }}</span></h3>
+                                        </div><!-- .entry-footer -->
+                                    </div><!-- .swiper-slide -->
+                                    {% endfor %}
+
+                                <div class="swiper-pagination-wrap">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="swiper-pagination position-relative flex justify-content-center align-items-center"></div>
+                                            </div><!-- .col -->
+                                        </div><!-- .row -->
+                                    </div><!-- .container -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .testimonial-slider -->
+    </section><!-- .testimonial-section -->
