@@ -48,13 +48,21 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <span class="user-img">
+                                {% if user.imagem %}
                                 <img class="rounded-circle" src="{{ user.imagem.url }}" width="31" alt="{{ user.get_full_name }}">
+                                {% else %}
+                                <img class="rounded-circle" src="" width="31" alt="{{ user.get_full_name }}">
+                                {% endif %}
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
+                                    {% if user.imagem %}
                                     <img src="{{ user.imagem.url }}" alt="User Image" class="avatar-img rounded-circle">
+                                    {% else %}
+                                    <img src="" alt="User Image" class="avatar-img rounded-circle">
+                                    {% endif %}
                                 </div>
                                 <div class="user-text">
                                     <h6>{{ user.get_full_name }}</h6>
@@ -102,7 +110,11 @@
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
                                     <a href="#" class="booking-doc-img">
+                                        {% if user.imagem %}
                                         <img src="{{ user.imagem.url }}" alt="User Image">
+                                        {% else %}
+                                        <img src="" alt="User Image">
+                                        {% endif %}
                                     </a>
                                     <div class="profile-det-info">
                                         <h3>{{ user.get_full_name }}</h3>
@@ -120,13 +132,6 @@
                                             <a href="{% url 'index' %}">
                                                 <i class="fas fa-columns"></i>
                                                 <span>Painel</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'notification' user.id %}">
-                                                <i class="fas fa-bell"></i>
-                                                <span>Notificações</span>
-                                                <small class="unread-msg">23</small>
                                             </a>
                                         </li>
                                         <li>
@@ -184,7 +189,11 @@
                                     <div class="row form-row">
                                         <div class="booking-doc-info">
                                             <a href="doctor-profile.html" class="booking-doc-img">
+                                                {% if consulta.medico.imagem %}
                                                 <img src="{{ consulta.medico.imagem.thumb.url }}" alt="User Image">
+                                                {% else %}
+                                                <img src="" alt="User Image">
+                                                {% endif %}
                                             </a>
                                             <div class="booking-info">
                                                 <h4><a href="doctor-profile.html">{{ consulta.medico.get_full_name }}</a></h4>

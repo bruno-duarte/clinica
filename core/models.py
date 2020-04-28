@@ -8,6 +8,7 @@ from django.core.cache import cache
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db.models.signals import post_save
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def get_file_path(_instance, filename):
@@ -362,10 +363,13 @@ def atualiza_consultas_medico(sender, instance, **kwargs):
 
 def marca_como_lida(sender, instance, **kwargs):
 	if instance.estado == 'Agendada':
-		notificacao = Notificacao.objects.get(consulta=instance)
-		if notificacao:
-			notificacao.lida = True
-			notificacao.save(update_fields=['lida'])
+		try:
+			notificacao = Notificacao.objects.get(consulta=instance)
+			if notificacao:
+				notificacao.lida = True
+				notificacao.save(update_fields=['lida'])
+		except ObjectDoesNotExist:
+			pass
 
 
 post_save.connect(cria_notificacao, sender=Consulta)
