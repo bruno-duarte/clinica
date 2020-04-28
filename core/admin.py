@@ -95,8 +95,7 @@ class MedicoAdmin(UserAdmin):
 	fieldsets = (
 		(None, {'fields': ('cpf', 'password')}),
 		('Informações Pessoais', {'fields': (
-			'first_name', 'last_name', 'telefone', 'email', 'imagem', 'especialidade', 'formacao',
-			'consultas'
+			'first_name', 'last_name', 'telefone', 'email', 'imagem', 'especialidade', 'formacao'
 		)}),
 		('Permissões', {'fields': (
 			'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'
