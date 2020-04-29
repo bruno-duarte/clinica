@@ -151,7 +151,7 @@ class PacienteAdmin(UserAdmin):
 	add_form = PacienteCreateForm
 	form = PacienteChangeForm
 	model = Paciente
-	actions = None 
+	#actions = None 
 	
 	list_display = (
 		'first_name', 'last_name', 'email', 'telefone', 'cpf', 'data_nascimento', 'tem_consulta'
@@ -176,7 +176,7 @@ class PacienteAdmin(UserAdmin):
 			if obj.id == paciente.id:
 				return True
 		return False 
-
+	'''
 	def has_delete_permission(self, request, obj=None):
 		return False
 
@@ -185,7 +185,7 @@ class PacienteAdmin(UserAdmin):
 
 	def save_model(self, request, obj, form, change):
 		pass
-
+	'''
 	tem_consulta.boolean = True
 
 
@@ -198,9 +198,9 @@ class HorarioAdmin(admin.ModelAdmin):
 @admin.register(Consulta)
 class ConsultaAdmin(admin.ModelAdmin):
 
-	actions = None 
+	#actions = None 
 	list_display = ('id', 'data', 'hora', 'estado', 'medico', 'paciente')
-
+	'''
 	def has_delete_permission(self, request, obj=None):
 		return False
 
@@ -209,5 +209,5 @@ class ConsultaAdmin(admin.ModelAdmin):
 
 	def save_model(self, request, obj, form, change):
 		pass
-
+	'''
 
