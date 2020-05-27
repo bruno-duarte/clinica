@@ -1,0 +1,176 @@
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card dash-card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-12 col-lg-4">
+												<div class="dash-widget dct-border-rht">
+													<div class="circle-bar circle-bar1">
+														<div class="circle-graph1" data-percent="{% porcentagem_consultas user.id %}">
+															<img src="{% static 'images/icon-01.png' %}" class="img-fluid" alt="patient">
+														</div>
+													</div>
+													<div class="dash-widget-info">
+														<h6>Total de Pacientes</h6>
+														<h3>{% total_consultas user.id %}</h3>
+														<p class="text-muted">Até Hoje</p>
+													</div>
+												</div>
+											</div>
+											
+											<div class="col-md-12 col-lg-4">
+												<div class="dash-widget dct-border-rht">
+													<div class="circle-bar circle-bar2">
+														<div class="circle-graph2" data-percent="{% porcentagem_consultas_hoje user.id %}">
+															<img src="{% static 'images/icon-02.png' %}" class="img-fluid" alt="Patient">
+														</div>
+													</div>
+													<div class="dash-widget-info">
+														<h6>Pacientes de Hoje</h6>
+														<h3>{% total_consultas_hoje user.id %}</h3>
+														<p class="text-muted">{{ data_hoje.day }} de {% map_mes %} de {{ data_hoje.year }}</p>
+													</div>
+												</div>
+											</div>
+											
+											<div class="col-md-12 col-lg-4">
+												<div class="dash-widget">
+													<div class="circle-bar circle-bar3">
+														<div class="circle-graph3" data-percent="{% porcentagem_consultas_realizadas user.id %}">
+															<img src="{% static 'images/icon-03.png' %}" class="img-fluid" alt="Patient">
+														</div>
+													</div>
+													<div class="dash-widget-info">
+														<h6>Consultas Realizadas</h6>
+														<h3>{% total_consultas_realizadas user.id %}</h3>
+														<p class="text-muted">{{ data_hoje.day }} de {% map_mes %} de {{ data_hoje.year }}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								{% total_prox_consultas user.id as total %}
+                                {% if total > 0 %}
+								<h4 class="mb-4">Consultas de Pacientes</h4>
+								<div class="appointment-tab">
+								
+									<!-- Appointment Tab -->
+									<ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+										<li class="nav-item">
+											<a class="nav-link active" href="{% url 'user' %}">Próximas</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{% url 'today-appointments' user.id %}">Hoje</a>
+										</li> 
+									</ul>
+									<!-- /Appointment Tab -->
+									
+									<div class="">
+									
+										<!-- Upcoming Appointment Tab -->
+										<div class="" id="upcoming-appointments">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Nome do paciente</th>
+																	<th>Data da consulta</th>
+                                                                    <th>Status</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																{% for c in prox_consultas %}
+																<tr>
+																	<td>
+																		<h2 class="table-avatar">
+																			{% if c.paciente.imagem %}
+																			<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{ c.paciente.imagem.thumb.url }}" alt="User Image"></a>
+																			{% else %}
+																			<a href="#" class="avatar avatar-sm mr-2">
+																				 <span class="user-img">
+													                                <div class="patient-avatar">
+													                                    {% iniciais_nome c.paciente.id as iniciais %}
+													                                    <p class="user-avatar">{{ iniciais }}</p>
+													                                </div>
+													                            </span>
+																			</a>
+																			{% endif %}
+																			<a href="#">{{ c.paciente.get_full_name }} <span>#PT0{{ c.paciente.id }}</span></a>
+																		</h2>
+																	</td>
+																	<td>{{ c.data }}  <span class="d-block text-info">{{ c.hora }}</span></td>
+                                                                    <td>
+                                                                        {% if c.estado == 'Agendada' %}
+                                                                        <span class="badge badge-pill bg-success-light">{{ c.estado }}
+                                                                        </span>
+                                                                        {% elif c.estado == 'Espera' %}
+                                                                        <span class="badge badge-pill bg-warning-light">{{ c.estado }}</span>
+                                                                        {% elif c.estado == 'Cancelada' %}
+                                                                        <span class="badge badge-pill bg-danger-light">{{ c.estado }}</span>
+                                                                        {% elif c.expirada and c.estado == 'Agendada' or c.estado == 'Espera' %}
+                                                                        <span class="badge badge-pill bg-warning-light">{{ c.estado }}</span>
+                                                                        {% elif c.estado == 'Realizada' %}
+                                                                        <span class="badge badge-pill bg-success-light">{{ c.estado }}</span>
+                                                                        {% endif %}
+                                                                    </td>
+																	<td class="text-right">
+																		<div class="table-action">
+                                                                            {% if c.estado == 'Realizada' %}
+                                                                            <a href="{% url 'report' c.id %}" class="btn btn-sm bg-primary-light">
+                                                                                <i class="fas fa-print"></i> Imprimir
+                                                                            </a>
+                                                                            {% else %}
+																			<a href="#" data-toggle="modal" data-target="#consulta{{c.id}}" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> Ver
+																			</a>
+																			{% endif %}
+																		</div>
+																	</td>
+																</tr>
+																{% endfor %}
+															</tbody>
+														</table>		
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Upcoming Appointment Tab -->
+										
+									</div>
+								</div>
+                                {% else %}
+                                <div class="dash-appointment-msg">
+                                	<h4 class="mb-4">Você não possui consultas para os próximos dias.</h4>
+                                </div>
+                                <div class="appointment-tab appointment-tab-bottom">
+                                
+                                    <!-- Appointment Tab -->
+                                    <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="{% url 'user' %}">Próximas</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'today-appointments' user.id %}">Hoje</a>
+                                        </li> 
+                                    </ul>
+                                    <!-- /Appointment Tab -->
+                                </div>
+                                {% endif %}
+							</div>
+						</div>
+
+					</div>
+{% endblock %}

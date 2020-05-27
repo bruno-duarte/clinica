@@ -1,0 +1,118 @@
+{% extends '../base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body pt-0">
+                                <!-- /Tab Menu -->
+
+                                <form action="{% url 'booking-results' user.id %}" method="get" onsubmit="return validaData()">
+                                    {% csrf_token %}
+                                    <!-- Schedule Header -->
+                                    <div class="row-day">
+                                        <div class="row">
+                                            <!-- Day Slot -->
+                                            <div class="col-md-12">
+                                                <input type="hidden" name="data" id="data-consulta" value="{{ str_data }}">
+                                                <input type="hidden" name="especialidade" id="especialidade" value="{{ esp }}">
+                                                <div class="left-arrow-align">
+                                                    <button type="submit" name="search_form" id="esquerda">
+                                                        <i class="fa fa-chevron-left"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="day-center">
+                                                    <span>{{ data }}</span>
+                                                </div>
+                                                <div class="right-arrow-align">
+                                                    <button type="submit" name="search_form" id="direita">
+                                                        <i class="fa fa-chevron-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <!-- /Day Slot -->
+                                        </div>
+                                    </div>
+                                    <!-- /Schedule Header -->
+                                </form>
+
+                                <!-- Tab Content -->
+                                <div class="">
+                                    
+                                    <!-- Appointment Tab -->
+                                    <div id="" class="tab-pane fade show active">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive"> 
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Médicos</th>
+                                                                <th>Horários</th>
+                                                                <th>Vagas</th>
+                                                                <th>Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for m in medicos %}
+                                                            <tr>
+                                                                <td class="b-right" rowspan="4">
+                                                                    <h2 class="table-avatar">
+                                                                        {% if m.imagem %}
+                                                                        <a href="#" class="avatar avatar-sm mr-2">
+                                                                            <img class="avatar-img rounded-circle" src="{{ m.imagem.thumb.url }}" alt="Doctor Image">
+                                                                        </a>
+                                                                        {% else %}
+                                                                        <a href="#" class="">
+                                                                            <div class="doctor-avatar">
+                                                                                {% iniciais_nome user.id as iniciais %}
+                                                                                <p class="user-avatar">{{ iniciais }}</p>
+                                                                            </div>
+                                                                        </a>
+                                                                        {% endif %}
+                                                                        <a href="#">Dr. {{ m.get_full_name }} <span>{{ m.especialidade }}</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            {% for h in horarios %}
+                                                            <tr> 
+                                                                <td>{{ h.horario }}</td>
+                                                                <td>
+                                                                    {% tem_vaga m.id h.id str_data as disp %}
+                                                                    {% if disp %}
+                                                                    <span class="badge badge-pill bg-success-light">Disponível</span>
+                                                                    {% else %}
+                                                                    <span class="badge badge-pill bg-danger-light">Indisponível</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>
+                                                                    {% tem_vaga m.id h.id str_data as disp %}
+                                                                    {% if disp %}
+                                                                    <div class="table-action">
+                                                                        <a href="#" data-toggle="modal" data-target="#add_new_event{{m.id}}{{h.id}}" class="btn btn-sm bg-primary-light">Agendar</a>
+                                                                    </div>
+                                                                    {% else %}
+                                                                    <div class="table-action">
+                                                                        <a href="#" data-toggle="modal" data-target="#lista_espera{{m.id}}{{h.id}}" class="btn btn-sm bg-warning-light">Lista de<br> Espera</a>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Appointment Tab -->
+                                    
+                                </div>
+                                <!-- Tab Content -->
+                                
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.urls import reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 
@@ -7,7 +8,8 @@ from .views import (
     ServicesView, SignupView, ProfileView, PrescriptionsView, MedicalRecordsView, 
     ChangePasswordView, BookingView, BookingResultsView, CancelConsultaView, 
     UpdateConsultaView, AppointmentsView, AllAppointmentsView, ReportView, 
-    RemoveDataView, NotificationView, ConfirmView
+    RemoveDataView, NotificationView, ConfirmView, PatientView, UserView,
+    DeleteView
 )
 
 
@@ -32,16 +34,19 @@ urlpatterns = [
     path('remove/<int:pk>', RemoveDataView.as_view(), name='remove'),
     path('notification/<int:pk>', NotificationView.as_view(), name='notification'),
     path('confirm/<int:pk>', ConfirmView.as_view(), name='confirm'),
+    path('patients/<int:pk>', PatientView.as_view(), name='patients'),
+    path('delete/<int:pk>', DeleteView.as_view(), name='delete'),
+    path('user', UserView.as_view(), name='user'),
     
-    path('login', auth_views.LoginView.as_view(redirect_authenticated_user=True, 
-                                                template_name='commons/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='index'), name='logout'),
+    path('auth/login', auth_views.LoginView.as_view(redirect_authenticated_user=True, 
+                                                template_name='commons/auth/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 
     path(
         'change-password/',
         ChangePasswordView.as_view(
             template_name='commons/change-password.html',
-            success_url = '/'
+            success_url = reverse_lazy('user')
         ),
         name='change_password'
     ),

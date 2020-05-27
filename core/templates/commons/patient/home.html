@@ -1,0 +1,140 @@
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body pt-0">
+                                {% tem_consulta user.id as com_consulta %}
+                                {% if com_consulta %}
+                                <!-- Tab Menu -->
+                                <nav class="user-tabs mb-4">
+                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="{% url 'user' %}">Agendamentos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'prescriptions' user.id %}">Prescrições</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'medical-records' user.id %}"><span class="med-records">Relatórios Médicos</span></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- /Tab Menu -->
+                                
+                                <!-- Tab Content -->
+                                <div class="">
+                                    
+                                    <!-- Appointment Tab -->
+                                    <div id="" class="tab-pane fade show active">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Médico</th>
+                                                                <th>Data da Consulta</th>
+                                                                <th>Data de Agen</th>
+                                                                <th>Status</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for c in consultas_paciente %}
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        {% if c.medico.imagem %}
+                                                                        <a href="#" class="avatar avatar-sm mr-2">
+                                                                            <img class="avatar-img rounded-circle" src="{{ c.medico.imagem.thumb.url }}" alt="User Image">
+                                                                        </a>
+                                                                        {% else %}
+                                                                        <a href="#" class="avatar avatar-sm mr-2">
+                                                                            <div class="patient-avatar">
+                                                                                {% iniciais_nome c.medico.id as iniciais %}
+                                                                                <p class="user-avatar">{{ iniciais }}</p>
+                                                                            </div>
+                                                                        </a>
+                                                                        {% endif %}
+                                                                        <a href="#">{{ c.medico.get_full_name }} <span>{{ c.medico.especialidade }}</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>{{ c.data }} <span class="d-block text-info">{{ c.hora }}</span></td>
+                                                                <td>{{ c.criado }}</td>
+                                                                <td>
+                                                                    {% if c.estado == 'Agendada' and not c.expirada %}
+                                                                    <span class="badge badge-pill bg-success-light">{{ c.estado }}
+                                                                    </span>
+                                                                    {% elif c.estado == 'Agendada' and c.expirada %}
+                                                                    <span class="badge badge-pill bg-warning-light">Expirada</span>
+                                                                    {% elif c.estado == 'Espera' and not c.expirada %}
+                                                                    <span class="badge badge-pill bg-warning-light">{{ c.estado }}</span>
+                                                                    {% elif c.estado == 'Espera' and c.expirada %}
+                                                                    <span class="badge badge-pill bg-warning-light">Expirada</span>
+                                                                    {% elif c.estado == 'Cancelada' %}
+                                                                    <span class="badge badge-pill bg-danger-light">{{ c.estado }}</span>
+                                                                    {% elif c.estado == 'Realizada' %}
+                                                                    <span class="badge badge-pill bg-success-light">{{ c.estado }}
+                                                                    {% endif %}</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="#" data-toggle="modal" data-target="#appt_summary{{c.id}}" class="btn btn-sm bg-primary-light">
+                                                                            <i class="far fa-eye"></i> Ver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        </a>
+                                                                        {% if c.estado == 'Agendada' %}
+                                                                            {% pode_cancelar c as cancelar %}
+                                                                            {% if not cancelar and not c.expirada %}
+                                                                            <a href="{% url 'report' c.id %}" class="btn btn-sm bg-primary-light">
+                                                                                <i class="fas fa-print"></i> Imprimir
+                                                                            </a>
+                                                                            {% elif c.expirada %}
+                                                                            <a href="{% url 'delete' c.id %}" class="btn btn-sm bg-danger-light">
+                                                                                <i class="fas fa-trash"></i> Apagar&nbsp;&nbsp;
+                                                                            </a>
+                                                                            {% else %}
+                                                                            <a href="{% url 'cancel' c.id %}" class="btn btn-sm bg-danger-light">
+                                                                                <i class="fas fa-times-circle"></i> Cancelar
+                                                                            </a>
+                                                                            {% endif %}
+                                                                        {% elif c.estado == 'Cancelada' %}
+                                                                        <a href="{% url 'delete' c.id %}" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-trash"></i> Apagar&nbsp;&nbsp;     
+                                                                        </a>
+                                                                        {% elif c.estado == 'Espera' %}
+                                                                            {% if c.expirada %}
+                                                                            <a href="{% url 'delete' c.id %}" class="btn btn-sm bg-danger-light">
+                                                                                <i class="fas fa-trash"></i> Apagar&nbsp;&nbsp;
+                                                                            </a>
+                                                                            {% else %}
+                                                                            <a href="{% url 'report' c.id %}" class="btn btn-sm bg-primary-light">
+                                                                                <i class="fas fa-print"></i> Imprimir
+                                                                            </a>
+                                                                            {% endif %}
+                                                                        {% elif c.estado == 'Realizada' %}
+                                                                        <a href="{% url 'report' c.id %}" class="btn btn-sm bg-primary-light">
+                                                                            <i class="fas fa-print"></i> Imprimir
+                                                                        </a>
+                                                                        {% endif %}
+                                                                        
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Appointment Tab -->
+                                    
+                                </div>
+                                <!-- Tab Content -->
+                                {% else %}
+                                <h4 class="mb-4">Você não possui nenhuma consulta ainda. Clique em "+" e agende sua consulta agora.</h4>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

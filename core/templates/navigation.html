@@ -1,22 +1,53 @@
 {% load static %}
+{% load custom_tags %}
 <div class="nav-bar">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="col-12 d-flex flex-wrap justify-content-between align-items-center" >
                         <div class="site-branding d-flex align-items-center">
-                           <a class="d-block" href="{% url 'index' %}" rel="home"><img class="d-block" src="{% static 'images/logo.png' %}" alt="logo"></a>
+                           <a class="d-block" href="{% url 'index' %}" rel="home"><img class="d-block site-logo" src="{% static 'images/logo.png' %}" alt="logo"></a>
+                        </div><!-- .site-branding -->
+
+                        <div class="site-branding d-flex align-items-center site-nav">
+                            <nav class="site-navigation d-flex justify-content-end align-items-center">
+                               <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
+                                    {% caminho request.path as current_url %}
+                                    {% if '/' == current_url %}
+                                        <li class="current-menu-item"><a href="{% url 'index' %}">Início</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'index' %}">Início</a></li>
+                                    {% endif %}
+                                    {% if '/about' in current_url %}
+                                        <li class="current-menu-item"><a href="{% url 'about' %}">Sobre</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'about' %}">Sobre</a></li>
+                                    {% endif %}
+                                    {% if '/services' in current_url %}
+                                        <li class="current-menu-item"><a href="{% url 'services' %}">Serviços</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'services' %}">Serviços</a></li>
+                                    {% endif %}
+                                    {% if '/news' in current_url %}
+                                        <li class="current-menu-item"><a href="{% url 'news' %}">Notícias</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'news' %}">Notícias</a></li>
+                                    {% endif %}
+                                    {% if '/contact' in current_url %}
+                                        <li class="current-menu-item"><a href="{% url 'contact' %}">Contato</a></li>
+                                    {% else %} 
+                                        <li><a href="{% url 'contact' %}">Contato</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
                         </div><!-- .site-branding -->
 
                         <nav class="site-navigation d-flex justify-content-end align-items-center">
                             <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-items-center">
-                                <li class="current-menu-item"><a href="{% url 'index' %}">Início</a></li>
-                                <li><a href="{% url 'about' %}">Sobre</a></li>
-                                <li><a href="{% url 'services' %}">Serviços</a></li>
-                                <li><a href="{% url 'news' %}">Notícias</a></li>
-                                <li><a href="{% url 'contact' %}">Contato</a></li>
+                                <li><a href="{% url 'login' %}" target="_blank">Entrar</a></li>
                                 <li>
+                                    <!-- class="nav-button gradient-bg" -->
                                     <div class="nav-button button gradient-bg">
-                                        <a href="{% url 'login' %}">Entrar</a>
+                                        <a href="{% url 'signup' %}">Cadastre-se</a>
                                     </div>
                                 </li>
                             </ul>

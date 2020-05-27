@@ -1,5 +1,5 @@
 {% load static %}
-<footer class="site-footer" style="background: url('{% static 'images/footer-bg.png' %}') no-repeat center #fff;">
+<footer class="site-footer">
         <div>
         <div class="footer-widgets">
             <div class="container">
@@ -21,9 +21,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             <h2>Contato</h2>
 
                             <ul class="p-0 m-0">
-                                <li><span>End.:</span>Mitlton Str. 26-27 London UK</li>
-                                <li><span>Telefone:</span>+53 345 7953 32453</li>
-                                <li><span>Email:</span>seuemail@gmail.com</li>
+                                <li><span>End.:</span>{{ configuracoes_site.endereco }}</li>
+                                <li><span>Telefone:</span>{{ configuracoes_site.telefone }}</li>
+                                <li><span>Email:</span>{{ configuracoes_site.suporte }}</li>
                             </ul>
                         </div>
                     </div><!-- .col -->
@@ -35,7 +35,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                             <ul class="p-0 m-0">
                                 <li><a href="{% url 'index' %}">Início</a></li>
                                 <li><a href="{% url 'about' %}">Sobre</a></li>
-                                <li><a href="{% url 'elements' %}">Especialidades</a></li>
+                                <li><a href="{% url 'elements' %}">Componentes</a></li>
                                 <li><a href="{% url 'contact' %}">Contato</a></li>
                                 <li><a href="{% url 'news' %}">FAQ</a></li>
                                 <li><a href="{% url 'services' %}">Depoimentos</a></li>

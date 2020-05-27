@@ -1,28 +1,329 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!-- Homepage Boxes -->
-    	{% include 'boxes.html' %}
-    <!-- Homepage boxes end -->
+<body>
+    <header class="site-header">
+        <!-- .nav-bar -->
+        {% include 'navigation.html' %}
+        <!-- end .nav-bar -->
 
-    <!-- Departments -->
-    	{% include 'departments.html' %}
-    <!-- Departments End -->
+        <div class="swiper-container hero-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide hero-content-wrap" style="background-image: url('{% static 'images/hero.jpg' %}')">
+                    <div class="hero-content-overlay position-absolute w-100 h-100">
+                        <div class="container h-100">
+                            <div class="row h-100">
+                                <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                                    <header class="entry-header">
+                                        <h1>O melhor <br>Serviço Médico</h1>
+                                    </header><!-- .entry-header -->
 
-    <!-- Testimonial -->
-    	{% include 'testimonial.html' %}
-    <!-- Testimonial End -->
+                                    <div class="entry-content mt-4">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                    </div><!-- .entry-content -->
 
-    <!-- The News -->
-    	{% include 'thenews.html' %}
-    <!-- The News End -->
-    
-    <!-- Subscribe Banner -->
-    	{% include 'subscribe.html' %}
-    <!-- Subscribe Banner End -->
-    
-    <!-- Footer -->
-    	{% include 'footer.html' %}
-    <!-- Footer -->
-    
+                                    <footer class="entry-footer d-flex flex-wrap align-items-center mt-4">
+                                        <a href="#" class="button gradient-bg">Leia Mais</a>
+                                    </footer><!-- .entry-footer -->
+                                </div><!-- .col -->
+                            </div><!-- .row -->
+                        </div><!-- .container -->
+                    </div><!-- .hero-content-overlay -->
+                </div><!-- .hero-content-wrap -->
+
+                <div class="swiper-slide hero-content-wrap" style="background-image: url('{% static 'images/hero.jpg' %}')">
+                    <div class="hero-content-overlay position-absolute w-100 h-100">
+                        <div class="container h-100">
+                            <div class="row h-100">
+                                <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                                    <header class="entry-header">
+                                        <h1>O melhor <br>Serviço Médico</h1>
+                                    </header><!-- .entry-header -->
+
+                                    <div class="entry-content mt-4">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                    </div><!-- .entry-content -->
+
+                                    <footer class="entry-footer d-flex flex-wrap align-items-center mt-4">
+                                        <a href="#" class="button gradient-bg">Leia Mais</a>
+                                    </footer><!-- .entry-footer -->
+                                </div><!-- .col -->
+                            </div><!-- .row -->
+                        </div><!-- .container -->
+                    </div><!-- .hero-content-overlay -->
+                </div><!-- .hero-content-wrap -->
+
+                <div class="swiper-slide hero-content-wrap" style="background-image: url('{% static 'images/hero.jpg' %}')">
+                    <div class="hero-content-overlay position-absolute w-100 h-100">
+                        <div class="container h-100">
+                            <div class="row h-100">
+                                <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-start">
+                                    <header class="entry-header">
+                                        <h1>O melhor <br>Serviço Médico</h1>
+                                    </header><!-- .entry-header -->
+
+                                    <div class="entry-content mt-4">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                    </div><!-- .entry-content -->
+
+                                    <footer class="entry-footer d-flex flex-wrap align-items-center mt-4">
+                                        <a href="#" class="button gradient-bg">Leia Mais</a>
+                                    </footer><!-- .entry-footer -->
+                                </div><!-- .col -->
+                            </div><!-- .row -->
+                        </div><!-- .container -->
+                    </div><!-- .hero-content-overlay -->
+                </div><!-- .hero-content-wrap -->
+            </div><!-- .swiper-wrapper -->
+
+            <div class="pagination-wrap position-absolute w-100">
+                <div class="swiper-pagination d-flex flex-row flex-md-column"></div>
+            </div><!-- .pagination-wrap -->
+        </div><!-- .hero-slider -->
+    </header><!-- .site-header -->
+
+    <div class="homepage-boxes">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="opening-hours">
+                        <h2 class="d-flex align-items-center">Funcionamento</h2>
+
+                        <ul class="p-0 m-0">
+                            <li><strong>Todos os dias</strong></li>
+                            {% for h in horarios %}
+                            <li>{{ h.horario }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                    <div class="emergency-box">
+                        <h2 class="d-flex align-items-center">Emergência</h2>
+
+                        <div class="call-btn button gradient-bg">
+                            <a class="d-flex justify-content-center align-items-center" href="#"><img src="{% static 'images/emergency-call.png' %}"> {{ configuracoes_site.telefone }}</a>
+                        </div>
+
+                        <p>Lorem ipsum dolor sit amet, cons ectetur adipiscing elit. Donec males uada lorem maximus mauris sceler isque.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-5 mt-5 mt-lg-0">
+                    <div class="appointment-box">
+                        <h2 class="d-flex align-items-center">Agende uma consulta</h2>
+
+                        <form class="d-flex flex-wrap justify-content-between">
+                            <select class="select-department">
+                                <option value="value1">Especialidade</option>
+                                {% for e in especialidades %}
+                                    <option>{{ e.nome }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <select class="select-doctor">
+                                <option>Médico</option>
+                                {% for m in medicos %}
+                                <option>{{ m.first_name }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <input type="text" placeholder="Nome">
+
+                            <input type="number" placeholder="Telefone">
+
+                            <input class="button gradient-bg" type="submit" value="Agendar">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="our-departments">
+        {% include 'departments.html' %}
+    </div>
+
+    <section class="testimonial-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Depoimentos dos Pacientes</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Swiper -->
+        <div class="testimonial-slider">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="testimonial-bg-shape">
+                            <div class="swiper-container testimonial-slider-wrap">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="entry-content">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo.</p>
+                                        </div><!-- .entry-content -->
+
+                                        <div class="entry-footer">
+                                            <figure class="user-avatar">
+                                                <img src="{% static 'images/user-1.jpg' %}" alt="">
+                                            </figure><!-- .user-avatar -->
+
+                                            <h3 class="testimonial-user">Russell Stephens <span>University in UK</span></h3>
+                                        </div><!-- .entry-footer -->
+                                    </div><!-- .swiper-slide -->
+
+                                    <div class="swiper-slide">
+                                        <div class="entry-content">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo.</p>
+                                        </div><!-- .entry-content -->
+
+                                        <div class="entry-footer">
+                                            <figure class="user-avatar">
+                                                <img src="{% static 'images/user-2.jpg' %}" alt="">
+                                            </figure><!-- .user-avatar -->
+
+                                            <h3 class="testimonial-user">Russell Stephens <span>University in UK</span></h3>
+                                        </div><!-- .entry-footer -->
+                                    </div><!-- .swiper-slide -->
+
+                                    <div class="swiper-slide">
+                                        <div class="entry-content">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo.</p>
+                                        </div><!-- .entry-content -->
+
+                                        <div class="entry-footer">
+                                            <figure class="user-avatar">
+                                                <img src="{% static 'images/user-3.jpg' %}" alt="">
+                                            </figure><!-- .user-avatar -->
+
+                                            <h3 class="testimonial-user">Russell Stephens <span>University in UK</span></h3>
+                                        </div><!-- .entry-footer -->
+                                    </div><!-- .swiper-slide -->
+
+                                    <div class="swiper-slide">
+                                        <div class="entry-content">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo.</p>
+                                        </div><!-- .entry-content -->
+
+                                        <div class="entry-footer">
+                                            <figure class="user-avatar">
+                                                <img src="{% static 'images/user-4.jpg' %}" alt="">
+                                            </figure><!-- .user-avatar -->
+
+                                            <h3 class="testimonial-user">Russell Stephens <span>University in UK</span></h3>
+                                        </div><!-- .entry-footer -->
+                                    </div><!-- .swiper-slide -->
+                                </div><!-- .swiper-wrapper -->
+
+                                <div class="swiper-pagination-wrap">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="swiper-pagination position-relative flex justify-content-center align-items-center"></div>
+                                            </div><!-- .col -->
+                                        </div><!-- .row -->
+                                    </div><!-- .container -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .testimonial-slider -->
+    </section><!-- .testimonial-section -->
+
+    <div class="the-news">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Notícias</h2>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="the-news-wrap">
+                                <figure class="post-thumbnail">
+                                    <a href="#"><img src="{% static 'images/news-1.png' %}" alt=""></a>
+                                </figure>
+
+                                <header class="entry-header">
+                                    <h3>Mais recente</h3>
+
+                                    <div class="post-metas d-flex flex-wrap align-items-center">
+                                        <div class="posted-date"><label>Data: </label><a href="#">12 de Abril de 2018</a></div>
+
+                                        <div class="posted-by"><label>Por: </label><a href="#">Dr. Jake Williams</a></div>
+
+                                        <div class="post-comments"><a href="#">2 Comentários</a></div>
+                                    </div>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="the-news-wrap">
+                                <figure class="post-thumbnail">
+                                    <a href="#"><img src="{% static 'images/news-2.png' %}" alt=""></a>
+                                </figure>
+
+                                <header class="entry-header">
+                                    <h3>Tudo o que você precisa saber sobre pílulas</h3>
+
+                                    <div class="post-metas d-flex flex-wrap align-items-center">
+                                        <div class="posted-date"><label>Data: </label><a href="#">12 de Abril de 2018</a></div>
+
+                                        <div class="posted-by"><label>Por: </label><a href="#">Dr. Jake Williams</a></div>
+
+                                        <div class="post-comments"><a href="#">2 Comentários</a></div>
+                                    </div>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="the-news-wrap">
+                                <figure class="post-thumbnail">
+                                    <a href="#"><img src="{% static 'images/news-3.png' %}" alt=""></a>
+                                </figure>
+
+                                <header class="entry-header">
+                                    <h3>Medicina e Mercado</h3>
+
+                                    <div class="post-metas d-flex flex-wrap align-items-center">
+                                        <div class="posted-date"><label>Data: </label><a href="#">12 de April de 2018</a></div>
+
+                                        <div class="posted-by"><label>Por: </label><a href="#">Dr. Jake Williams</a></div>
+
+                                        <div class="post-comments"><a href="#">2 Comentários</a></div>
+                                    </div>
+                                </header>
+
+                                <div class="entry-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'subscribe.html' %}
+
+    <!-- .site-footer -->
+    {% include 'footer.html' %}
+    <!-- end .site-footer -->
+
 {% endblock %}

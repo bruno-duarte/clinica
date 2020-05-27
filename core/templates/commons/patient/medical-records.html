@@ -1,0 +1,83 @@
+{% extends '../base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+<div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body pt-0">
+                            
+                                <!-- Tab Menu -->
+                                <nav class="user-tabs mb-4">
+                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'user' %}">Agendamentos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'prescriptions' user.id %}">Prescrições</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="{% url 'medical-records' user.id %}"><span class="med-records">Relatórios Médicos</span></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- /Tab Menu -->
+                                
+                                <!-- Tab Content -->
+                                <div class="">
+                                        
+                                    <!-- Medical Records Tab -->
+                                    <div id="" class="tab-pane fade show active">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Data </th>
+                                                                <th>Descrição</th>
+                                                                <th>Anexo</th>
+                                                                <th>Criado</th>
+                                                                <th></th>
+                                                            </tr>     
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0);">#MR-0010</a></td>
+                                                                <td>14 Nov 2019</td>
+                                                                <td>Dor de Dente</td>
+                                                                <td><a href="#">exame-dentario.pdf</a></td>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="#" class="avatar avatar-sm mr-2">
+                                                                            <img class="avatar-img rounded-circle" src="{% static 'images/doctors/doctor-thumb-01.jpg' %}" alt="User Image">
+                                                                        </a>
+                                                                        <a href="#">Dr. Ruby Perrin <span>Dentista</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> Ver
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                                            <i class="fas fa-print"></i> Imprimir
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>    
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Medical Records Tab -->
+                                    
+                                </div>
+                                <!-- Tab Content -->
+                                
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

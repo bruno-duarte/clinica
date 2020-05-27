@@ -1,0 +1,40 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                <!-- Profile Settings Form -->
+                                <form action="{% url 'booking-results' user.id %}" method="get" onsubmit="return validaData()" autocomplete="off">
+                                    {% csrf_token %}
+                                    <div class="row form-row">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <label>Data da Consulta</label>
+                                                <div class="cal-icon">
+                                                    <input type="date" id="data" name="data" type="text" class="form-control datetimepicker" value="{{ hoje|date:'Y-m-d' }}" required>
+                                                </div>
+                                                <p id="erro" class="text-danger"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <label>Especialidade</label>
+                                                <select id="especialidade" name="especialidade" class="form-control select" required>
+                                                    {% for e in especialidades %}
+                                                    <option>{{ e.nome }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <div class="submit-section">
+                                        <button id="button_id" type="submit" class="btn btn-primary submit-btn">Buscar Vagas</button>
+                                    </div>
+                                </form>
+                                <!-- /Profile Settings Form -->
+                                
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

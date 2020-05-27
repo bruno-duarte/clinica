@@ -1,0 +1,22 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="booking-item-wrap">
+                                    <p>Ao clicar no botão "Confirmar", todos os dados da consulta serão removidos permanentemente. Tem certeza que deseja realizar a operação?</p>
+                                </div>
+                                <!-- Profile Settings Form -->
+                                <form method="post" autocomplete="off">
+                                    {% csrf_token %}
+                                    <input type="hidden" id="ativo" name="ativo" value="False">
+                                    <div class="submit-section text-left">
+                                        <button name="form" type="submit" class="btn btn-danger submit-btn">Confirmar</button>
+                                    </div>
+                                </form>
+                                <!-- /Profile Settings Form -->
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

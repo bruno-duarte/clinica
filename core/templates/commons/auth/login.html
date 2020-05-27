@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Clínica</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons -->
+    <link href="{% static 'images/favicon.png' %}" rel="icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
+    
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    
+    <!-- Functionality -->
+    <script src="{% static 'js/functionality.js' %}"></script> 
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="{% static 'js/html5shiv.min.js' %}"></script>
+        <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+    
+</head>
+<body class="site-background">
+    <div class="container">
+        <div class="row">
+            <div class="appointment-box opening-hours login-box">
+                <h2 class="d-flex align-items-center">Entre Aqui</h2>
+
+                <form class="d-flex flex-wrap justify-content-between" method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <input type="text" for="username" id="username" name="username" placeholder="CPF" required>
+                    <input class="input-box" type="password" for="password" id="password" name="password" placeholder="Senha" required>
+                    {% if form.errors %}
+                    <p class="text-danger">Usuário ou senha incorretos!</p>
+                    {% endif %}
+                    <input class="button gradient-bg" type="submit" value="Entrar">
+                    <div class="login-links">
+                        <a href="{% url 'password_reset' %}">Esqueceu a senha?</a><br>
+                        <a href="{% url 'signup' %}">Deseja criar uma conta?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

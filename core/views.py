@@ -3,8 +3,8 @@ from datetime import datetime
 from weasyprint import HTML, CSS
 from background_task import background
 
-from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView, View
+from django.views.generic.base import RedirectView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth import views
 from django.urls import reverse_lazy
@@ -13,9 +13,10 @@ from django.db.models import Q
 from django.core.files.storage import FileSystemStorage
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 from .models import (
-	Especialidade, Medico, Paciente, Horario, Consulta, Notificacao
+	Especialidade, Medico, Paciente, Horario, Consulta, Notificacao, SiteSettings
 )
 from .forms import ( 
 	SignUpForm, ProfileForm, PasswordChangeForm, BookingForm, BookingResultsForm, 
@@ -36,9 +37,25 @@ class IndexView(TemplateView):
 		context['pacientes'] = Paciente.objects.order_by('?').all().filter()[:4]
 		context['medicos'] = Medico.objects.order_by('?').all().filter()[:4]
 		context['horarios'] = Horario.objects.all()
+		context['data_hoje'] = datetime.today()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
+
+
+class UserView(TemplateView):
+	
+	model = Paciente
+	form_class = BookingForm
+	success_url = reverse_lazy('index')
+	template_name = 'commons/user.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(UserView, self).get_context_data(**kwargs)
+		context['especialidades'] = Especialidade.objects.order_by('?').all()
+		context['horarios'] = Horario.objects.all()
 		context['consultas_paciente'] = Consulta.objects.filter(
 			Q(paciente__exact=self.request.user.id)
-		).order_by('data')
+		).exclude(ativo__exact=False).order_by('-data')
 		context['prox_consultas'] = Consulta.objects.filter(
 			Q(medico__exact=self.request.user.id) & 
 			Q(data__gt=datetime.today())
@@ -46,7 +63,7 @@ class IndexView(TemplateView):
 		context['total_notificacoes'] = Notificacao.objects.filter(
 			Q(paciente__exact=self.request.user.id) &
 			Q(lida__exact=False)
-		).order_by('criada').count()
+		).count()
 		context['notificacoes'] = Notificacao.objects.filter(
 			Q(paciente__exact=self.request.user.id),
 			Q(lida__exact=False)
@@ -57,9 +74,17 @@ class IndexView(TemplateView):
 		except IndexError:
 			context['medico'] = []
 		context['data_hoje'] = datetime.today()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
 
-
+	def get(self, request, *args, **kwargs):
+		if request.user.is_superuser:
+			return HttpResponseRedirect(reverse_lazy('admin:index'))
+		elif request.user.is_anonymous:
+			return HttpResponseRedirect(reverse_lazy('login'))
+		else:
+			context = self.get_context_data(**kwargs)
+			return self.render_to_response(context)
 
 
 class AboutView(TemplateView):
@@ -69,22 +94,8 @@ class AboutView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(AboutView, self).get_context_data(**kwargs)
 		context['medicos'] = Medico.objects.order_by('?').all().filter()[:4]
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
-
-
-class ContactView(TemplateView):
-	
-	template_name = 'contact.html'
-
-
-class ElementsView(TemplateView):
-	
-	template_name = 'elements.html'
-
-
-class NewsView(TemplateView):
-	
-	template_name = 'news.html'
 
 
 class ServicesView(TemplateView):
@@ -94,13 +105,47 @@ class ServicesView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(ServicesView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.all()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
+
+
+class NewsView(TemplateView):
+	
+	template_name = 'news.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(NewsView, self).get_context_data(**kwargs)
+		context['especialidades'] = Especialidade.objects.order_by('?').all().filter()[:5]
+		context['horarios'] = Horario.objects.all()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
+
+
+class ContactView(TemplateView):
+	
+	template_name = 'contact.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ContactView, self).get_context_data(**kwargs)
+		context['horarios'] = Horario.objects.all()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
+
+
+class ElementsView(TemplateView):
+	
+	template_name = 'elements.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ElementsView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
 
 
 class SignupView(CreateView):
 	
 	form_class = SignUpForm
-	success_url = reverse_lazy('index')
+	success_url = reverse_lazy('signup')
 	template_name = 'commons/signup.html'
 
 
@@ -108,44 +153,71 @@ class ProfileView(UpdateView):
 	
 	model = Paciente
 	form_class = ProfileForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/profile.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/profile.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ProfileView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
 class ChangePasswordView(views.PasswordChangeView):
 	
 	model = Paciente
 	form_class = PasswordChangeForm
-	success_url = reverse_lazy('index')
+	success_url = reverse_lazy('user')
 	template_name = 'commons/change-password.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ChangePasswordView, self).get_context_data(**kwargs)
+		try:
+			medico = Medico.objects.filter(Q(id=self.request.user.id))
+			context['medico'] = medico[0]
+		except IndexError:
+			pass
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
 class PrescriptionsView(CreateView):
 	
 	model = Paciente
 	form_class = ProfileForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/prescriptions.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/prescriptions.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(PrescriptionsView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
 class MedicalRecordsView(CreateView):
 	
 	model = Paciente
 	form_class = ProfileForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/medical-records.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/medical-records.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(MedicalRecordsView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
 class BookingView(CreateView):
 	
 	model = Paciente
 	form_class = BookingForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/booking.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/booking.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(BookingView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.filter()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		context['hoje'] = datetime.today()
 		return context
 	
 
@@ -153,8 +225,9 @@ class BookingResultsView(CreateView):
 	
 	model = Paciente
 	form_class = BookingResultsForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/booking-results.html'
+	search_form_class = BookingForm
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/booking-results.html'
 
 	def get_context_data(self, **kwargs):
 		todas_esp = Especialidade.objects.all()
@@ -179,8 +252,14 @@ class BookingResultsView(CreateView):
 		).order_by('first_name')
 		context['data'] = data
 		context['str_data'] = str_data
+		context['esp'] = self.request.GET.get('especialidade')
 		context['horarios'] = Horario.objects.all()
 		context['consultas'] = Consulta.objects.all()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		if 'search_form' not in context:
+			context['search_form'] = self.search_form_class()
 		return context	
 
 
@@ -188,12 +267,13 @@ class CancelConsultaView(UpdateView):
 
 	model = Consulta
 	fields = ['estado']
-	success_url = reverse_lazy('index')
-	template_name = 'commons/cancel.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/cancel.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(CancelConsultaView, self).get_context_data(**kwargs)
 		context['consultas'] = Consulta.objects.filter(Q(paciente__exact=self.request.user.id))
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
 
 
@@ -201,8 +281,8 @@ class AppointmentsView(TemplateView):
 	
 	model = Consulta
 	form_class = BookingResultsForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/today-appointments.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/doctor/today-appointments.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(AppointmentsView, self).get_context_data(**kwargs)
@@ -215,6 +295,8 @@ class AppointmentsView(TemplateView):
 			context['medico'] = medico[0]
 		except IndexError:
 			context['medico'] = []
+		context['data_hoje'] = datetime.today()
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
 
 
@@ -222,21 +304,22 @@ class UpdateConsultaView(UpdateView):
 
 	model = Consulta
 	form_class = UpdateAppointmentsForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/update.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/doctor/update.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(UpdateConsultaView, self).get_context_data(**kwargs)
 		context['consultas'] = Consulta.objects.filter(
 			Q(paciente__exact=self.request.user.id)
 		)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
 
 class AllAppointmentsView(TemplateView):
 	
 	model = Consulta
-	success_url = reverse_lazy('index')
-	template_name = 'commons/appointments.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/doctor/appointments.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(AllAppointmentsView, self).get_context_data(**kwargs)
@@ -248,6 +331,7 @@ class AllAppointmentsView(TemplateView):
 			context['medico'] = medico[0]
 		except IndexError:
 			pass
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
 		return context
 
 
@@ -277,35 +361,73 @@ class RemoveDataView(UpdateView):
 	
 	model = Paciente
 	form_class = ProfileForm
-	success_url = reverse_lazy('index')
-	template_name = 'commons/remove.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/remove.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(RemoveDataView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
 class NotificationView(TemplateView):
 	
 	model = Paciente
-	template_name = 'commons/notification.html'
+	template_name = 'commons/patient/notification.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(NotificationView, self).get_context_data(**kwargs)
 		context['notificacoes'] = Notificacao.objects.filter(
 			Q(paciente__exact=self.request.user.id)
 		).order_by('criada')
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
+
+
+class PatientView(TemplateView):
+	
+	model = Paciente
+	template_name = 'commons/doctor/patients.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(PatientView, self).get_context_data(**kwargs)
+		consultas = Consulta.objects.filter(
+			Q(medico__exact=self.request.user.id)
+		)
+		context['pacientes'] = Paciente.objects.filter(
+			id__in=consultas.values('paciente')
+		).order_by('first_name')
+		try:
+			medico = Medico.objects.filter(Q(id=self.request.user.id))
+			context['medico'] = medico[0]
+		except IndexError:
+			pass
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
 class ConfirmView(UpdateView):
 
 	model = Consulta
 	fields = ['estado']
-	success_url = reverse_lazy('index')
-	template_name = 'commons/confirm.html'
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/confirm.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ConfirmView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 
 
-@background(schedule=24*60*60)
-def update_status_of_appoint(user_id):
-	Consulta.objects.filter(
-		(Q(estado = 'Agendada') | Q(estado = 'Espera')) &
-		Q(data__lte = date.today())
-	).update(estado='Expirada')
+class DeleteView(UpdateView):
 
+	model = Consulta
+	fields = ['ativo']
+	success_url = reverse_lazy('user')
+	template_name = 'commons/patient/delete.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(DeleteView, self).get_context_data(**kwargs)
+		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		return context
 

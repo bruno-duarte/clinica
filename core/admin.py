@@ -34,6 +34,7 @@ class SingletonModelAdmin(admin.ModelAdmin):
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(SingletonModelAdmin):
+	
 	pass
 
 
@@ -95,8 +96,8 @@ class MedicoAdmin(UserAdmin):
 	fieldsets = (
 		(None, {'fields': ('cpf', 'password')}),
 		('Informações Pessoais', {'fields': (
-			'first_name', 'last_name', 'telefone', 'email', 'imagem', 'especialidade', 'formacao',
-			'consultas'
+			'first_name', 'last_name', 'telefone', 'email', 'imagem', 'especialidade', 'sexo',
+			'formacao', 'consultas'
 		)}),
 		('Permissões', {'fields': (
 			'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'
@@ -110,7 +111,7 @@ class MedicoAdmin(UserAdmin):
 		queryset = queryset.annotate(
 		    _total_de_consultas=Count('consultas', distinct=True),
 		)
-		return queryset
+		return queryset 
 
 	def total_de_consultas(self, obj):
 	    return obj._total_de_consultas
@@ -155,13 +156,13 @@ class PacienteAdmin(UserAdmin):
 	actions = None 
 	
 	list_display = (
-		'first_name', 'last_name', 'email', 'telefone', 'cpf', 'data_nascimento', 'tem_consulta'
+		'first_name', 'last_name', 'email', 'telefone', 'cpf', 'data_nascimento', 'sexo', 'tem_consulta'
 	)
 	fieldsets = (
 		(None, {'fields': ('cpf', 'password')}),
 		('Informações Pessoais', {'fields': (
 			'first_name', 'last_name', 'telefone', 'email', 'imagem', 'data_nascimento', 
-			'formacao', 'comentarios')}),
+			'sexo', 'formacao', 'comentarios')}),
 		('Permissões', {'fields': (
 			'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'
 		)}),
@@ -192,11 +193,22 @@ class PacienteAdmin(UserAdmin):
 
 @admin.register(Horario)
 class HorarioAdmin(admin.ModelAdmin):
+	
 	list_display = ('horario', )
 
 
 @admin.register(Consulta)
 class ConsultaAdmin(admin.ModelAdmin):
-	list_display = ('id', 'data', 'hora', 'estado', 'medico', 'paciente')
+	
+	list_display = ('id', 'data', 'hora', 'estado', 'medico', 'paciente', 'ativo')
+
+	def has_delete_permission(self, request, obj=None):
+		return False
+
+	def has_add_permission(self, request):
+		return False
+
+	def save_model(self, request, obj, form, change):
+		pass
 
 

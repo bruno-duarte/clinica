@@ -1,0 +1,99 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+						<div class="card">
+							<div class="card-body">
+								
+								<!-- Profile Settings Form -->
+								<form method="post" autocomplete="off">
+									{% csrf_token %}
+									<div class="row form-row">
+										<div class="col-12 col-md-12">
+											<div class="booking-item-wrap">
+			                                    <ul class="booking-date">
+			                                        <li><h4 class="modal-title"><strong>Preencher Receita</strong></h4></li>
+			                                    </ul>
+			                                </div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<div class="row form-row">
+			                                        <div class="booking-doc-info">
+			                                            <a href="doctor-profile.html" class="booking-doc-img">
+			                                                <img src="{{ consulta.paciente.imagem.url }}" alt="User Image">
+			                                            </a>
+			                                            <div class="booking-info">
+			                                                <h4>{{ consulta.paciente.get_full_name }}</h4>
+			                                                <div class="rating">
+			                                                	<i class="fas fa-mobile"></i>
+			                                                    <span>(85) {{ consulta.paciente.telefone }}</span>
+			                                                </div>
+			                                                <div class="clinic-details">
+			                                                    <p class="doc-location">35 anos</p>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                    </div>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+			                                    <div class="booking-doc-info">
+			                                        <div class="booking-summary">
+			                                            <div class="booking-item-wrap">
+			                                                <ul class="booking-date">
+			                                                    <li><strong>Data da Consulta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong> <span>{{ consulta.data }}</span></li>
+			                                                    <li><strong>Horário</strong> <span>{{ consulta.hora }}</span></li>
+			                                                </ul>   
+			                                            </div>
+			                                        </div>
+			                                    </div>
+											</div>
+										</div>
+										<div class="col-12 col-md-12">
+											<div class="form-group">
+												<label>Sintomas</label>
+												{% if consulta.estado == 'Agendada' %}
+												<textarea class="form-control" name="sintomas" id="sintomas" rows="10" cols="40"></textarea>
+												{% else %}
+												<textarea class="form-control" name="sintomas" id="sintomas" rows="10" cols="40">{{ consulta.sintomas }}
+												</textarea>
+												{% endif %}
+											</div>
+										</div>
+										<div class="col-12 col-md-12">
+											<div class="form-group">
+												<label>Remédios</label>
+												{% if consulta.estado == 'Agendada' %}
+												<textarea class="form-control" name="remedios" id="remedios" rows="10" cols="40"></textarea>
+												{% else %}
+												<textarea class="form-control" name="remedios" id="remedios" rows="10" cols="40">{{ consulta.remedios }}</textarea>
+												{% endif %}
+											</div>
+										</div>
+										<div class="col-12 col-md-12">
+											{% if consulta.estado == 'Agendada' or consulta.estado %}
+											<div class="form-group">
+												<label>Exames</label>
+												<textarea class="form-control" name="exames" id="exames" rows="10" cols="40"></textarea>
+											</div>
+											{% else %}
+											<div class="form-group">
+												<label>Exames</label>
+												<textarea class="form-control" name="exames" id="exames" rows="10" cols="40">{{ consulta.exames }}</textarea>
+											</div>
+											{% endif %}
+										</div>
+										<input type="hidden" name="estado" id="estado" value="Realizada">
+									</div>
+									<div class="submit-section">
+										<button type="submit" class="btn btn-primary submit-btn" name="form" >Salvar Consulta</button>
+									</div>
+								</form>
+								<!-- /Profile Settings Form -->
+								
+							</div>
+						</div>
+					</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends '../base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+<div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body pt-0">
+                            
+                                <!-- Tab Menu -->
+                                <nav class="user-tabs mb-4">
+                                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'user' %}">Agendamentos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="{% url 'prescriptions' user.id %}">Prescrições</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'medical-records' user.id %}"><span class="med-records">Relatórios Médicos</span></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- /Tab Menu -->
+                                
+                                <!-- Tab Content -->
+                                <div class="">
+                                    
+                                    <!-- Prescription Tab -->
+                                    <div class="tab-pane fade  show active" id="">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Data </th>
+                                                                <th>Nome </th>                                   
+                                                                <th>Criada por </th>
+                                                                <th></th>
+                                                            </tr>     
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>14 de Novembro de 2019</td>
+                                                                <td>Prescrição 1</td>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="#" class="avatar avatar-sm mr-2">
+                                                                            <img class="avatar-img rounded-circle" src="{% static 'images/doctors/doctor-thumb-01.jpg' %}" alt="User Image">
+                                                                        </a>
+                                                                        <a href="#">Dr. Ruby Perrin <span>Dentista</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                                            <i class="fas fa-print"></i> Imprimir
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> Ver
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>    
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Prescription Tab -->
+                                    
+                                </div>
+                                <!-- Tab Content -->
+                                
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

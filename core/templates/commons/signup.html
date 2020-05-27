@@ -1,7 +1,49 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-{% include 'header.html' %}
+<head>
+    <title>Clínica</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons -->
+    <link href="{% static 'images/favicon.png' %}" rel="icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
+    
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    
+    <!-- Functionality -->
+    <script src="{% static 'js/functionality.js' %}"></script> 
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="{% static 'js/html5shiv.min.js' %}"></script>
+        <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+    
+</head>
 <body class="site-background">
     <div class="appointment-box opening-hours signup-box">
         <h2 class="d-flex align-items-center">Cadastre-se</h2>
@@ -14,8 +56,7 @@
             <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
             <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
             <input type="email" id="email" name="email" placeholder="E-mail">
-            <label for="data_nascimento">Data de Nasc.:</label>
-            <input type="date" id="data_nascimento" name="data_nascimento" required>
+            <input class="date-field" type="text" id="data_nascimento" name="data_nascimento" placeholder="Data de Nascimento" onfocus="(this.type='date')" onblur="(this.type='text')" required>
             <input class="input-box" type="password" id="password1" name="password1" placeholder="Senha" required>
             <input class="input-box" type="password" id="password2" name="password2" placeholder="Confirmar" required>
             <input class="button gradient-bg" type="submit" value="Cadastrar">
