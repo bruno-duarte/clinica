@@ -1,0 +1,65 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="booking-item-wrap">
+                                    <ul class="booking-date">
+                                        <li><h4 class="modal-title"><strong>Cancelar Consulta</strong></h4></li>
+                                    </ul>
+                                </div>
+                                <!-- Profile Settings Form -->
+                                <form method="post" autocomplete="off">
+                                    {% csrf_token %}
+                                    <div class="booking-container">
+                                        <div class="row form-row">
+                                            <div class="booking-doc-info">
+                                                <a href="doctor-profile.html" class="booking-doc-img">
+                                                    <img src="{{ consulta.medico.imagem.thumb.url }}" alt="User Image">
+                                                </a>
+                                                <div class="booking-info">
+                                                    <h4><a href="doctor-profile.html">{{ consulta.medico.get_full_name }}</a></h4>
+                                                    <div class="rating">
+                                                        <i class="fas fa-star filled"></i>
+                                                        <i class="fas fa-star filled"></i>
+                                                        <i class="fas fa-star filled"></i>
+                                                        <i class="fas fa-star filled"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <span class="d-inline-block average-rating">35</span>
+                                                    </div>
+                                                    <div class="clinic-details">
+                                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Booking Doctor Info -->
+                                    <div class="booking-doc-info">
+                                        <div class="booking-summary">
+                                            <div class="booking-item-wrap">
+                                                <ul class="booking-date">
+                                                    <li><strong>Data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong> <span>{{ consulta.data }}</span></li>
+                                                    <li><strong>Horário</strong> <span>{{ consulta.hora }}</span></li>
+                                                    <li><strong>Motivo</strong></li>
+                                                </ul>  
+                                                <div class="col-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" name="motivo_cancelamento" id="motivo_cancelamento" rows="10" cols="40" required></textarea>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="estado" name="estado" value="Cancelada">
+                                    <div class="submit-section text-left">
+                                        <button name="form" type="submit" class="btn btn-danger submit-btn">Cancelar</button>
+                                    </div>
+                                </form>
+                                <!-- /Profile Settings Form -->
+                                
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

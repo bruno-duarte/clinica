@@ -1,0 +1,54 @@
+{% extends './base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+    {% total_consultas user.id as total %}
+	{% if total > 0 %}
+	<div class="col-md-7 col-lg-8 col-xl-9">
+								<div class="row row-grid">
+									{% for p in pacientes %}
+									<div class="col-md-6 col-lg-4 col-xl-3">
+										<div class="card widget-profile pat-widget-profile">
+											<div class="card-body">
+												<div class="pro-widget-content">
+													<div class="profile-info-widget">
+														{% if p.imagem %}
+														<a href="#" class="booking-doc-img">
+															<img src="{{ p.imagem.thumb.url }}" alt="User Image">
+														</a>
+														{% else %}
+														<div class="booking-medium-avatar">
+				                                            {% iniciais_nome p.id as iniciais %}
+				                                            <p class="med-user-letters">{{ iniciais }}</p>
+				                                        </div>
+														{% endif %}
+														<div class="profile-det-info">
+															<h3><a href="#">{{ p.get_full_name }}</a></h3>
+															
+															<div class="patient-details">
+																<h5><b>ID do Paciente :</b> P00{{ p.id }}</h5>
+																<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Ceará, BRA</h5>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="patient-info">
+													<ul>
+														<li>Telefone <span>{{ p.telefone }}</span></li>
+														{% calcula_idade p.id as idade %}
+														<li>Idade <span>{{ idade }} Anos, {{ p.sexo }}</span></li>
+														<li>Grupo Sanguíneo <span>AB+</span></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+	{% else %}
+						<div class="all-appointments-msg">
+							<h4>Você não possui nenhum paciente ainda.</h4>
+						</div>
+	{% endif %}
+{% endblock %}

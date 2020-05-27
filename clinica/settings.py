@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     'core',
     'stdimage',
-    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +79,10 @@ WSGI_APPLICATION = 'clinica.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> release/v1.1.0
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -141,7 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'core.CustomUsuario'
 
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'user'
+LOGOUT_REDIRECT_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

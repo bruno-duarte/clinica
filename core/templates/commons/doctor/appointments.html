@@ -1,0 +1,76 @@
+{% extends './base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+    {% total_consultas user.id as total %}
+	{% if total > 0 %}
+	<div class="col-md-7 col-lg-8 col-xl-9">
+							<div class="appointments">
+								{% for c in todas_consultas %}
+								<!-- Appointment List -->
+								<div class="appointment-list">
+									<div class="profile-info-widget">
+										{% if c.paciente.imagem %}
+										<a href="#" class="booking-doc-img">
+											<img src="{{ c.paciente.imagem.url }}" alt="User Image">
+										</a>
+										{% else %}
+										<a href="#" class="booking-doc-img">
+											<div class="big-squared-avatar">
+	                                            {% iniciais_nome c.paciente.id as iniciais %}
+	                                            <p class="big-user-avatar">{{ iniciais }}</p>
+	                                        </div>
+										</a>
+										{% endif %}
+										<div class="profile-det-info">
+											<h3><a href="#">{{ c.paciente.get_full_name }}</a></h3>
+											<div class="patient-details">
+												<h5><i class="far fa-clock"></i> {{ c.data }}, {{ c.hora }}</h5>
+												<h5><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>
+												<h5><i class="fas fa-envelope"></i> {{ c.paciente.email }}</h5>
+												<h5 class="mb-0"><i class="fas fa-phone"></i>(85) {{ c.paciente.telefone }}</h5>
+											</div>
+										</div>
+									</div>
+									<div class="appointment-action">
+										{% if c.estado == 'Realizada' %}
+	                                    <a href="{% url 'report' c.id %}" class="btn btn-sm bg-primary-light">
+	                                        <i class="fas fa-print"></i> Imprimir
+	                                    </a>
+	                                    <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+											<i class="fas fa-check"></i> Realizada
+										</a>
+	                                    {% endif %}
+	                                    {% if c.estado == 'Cancelada' %}
+	                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+											<i class="fas fa-times"></i> Cancelada
+										</a>
+										{% elif c.estado == 'Agendada' or c.estado == 'Espera' %}
+											{% if c.expirada %}
+											<a href="javascript:void(0);" class="btn btn-sm bg-warning-light">
+												<i class="fas fa-exclamation-circle"></i> Expirada&nbsp;
+											</a>
+											{% elif c.estado == 'Espera' %}
+											<a href="javascript:void(0);" class="btn btn-sm bg-warning-light">Espera</a>
+											{% elif c.estado == 'Agendada' %}
+											<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+												<i class="fas fa-check"></i> Agendada
+											</a>
+											{% endif %}
+										{% endif %}
+										<a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details{{c.id}}">
+											<i class="far fa-eye"></i> Ver
+										</a>
+									</div>
+								</div>
+								<!-- /Appointment List -->
+								{% endfor %}
+								
+							</div>
+						</div>
+	{% else %}
+						<div class="all-appointments-msg">
+							<h4>Você não possui nenhuma consulta.</h4>
+						</div>
+	{% endif %}
+{% endblock %}

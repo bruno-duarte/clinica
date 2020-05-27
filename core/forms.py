@@ -150,7 +150,7 @@ class BookingResultsForm(forms.ModelForm):
 	class Meta:
 		model = Consulta
 
-		fields = ['data', 'hora', 'estado', 'medico', 'paciente']
+		fields = ['data', 'hora', 'estado', 'medico', 'paciente', 'ativo']
 
 
 class UpdateAppointmentsForm(forms.ModelForm):

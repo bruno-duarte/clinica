@@ -1,22 +1,21 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-{% include 'header.html' %}
+{% block content %}
 <body class="single-page elements-page">
     <header class="site-header">
-    <!-- .site-navigation -->
-        {% include 'navigation.html' %}
-    <!-- .site-navigation -->
+    <!-- .nav-bar -->
+    {% include 'navigation.html' %}
+    <!-- end .nav-bar -->
 
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Departamentos</h1>
+                <h1>Elements</h1>
 
                 <div class="breadcrumbs">
                     <ul class="d-flex flex-wrap align-items-center p-0 m-0">
-                        <li><a href="#">Início</a></li>
-                        <li>Especialidades</li>
+                        <li><a href="#">Home</a></li>
+                        <li>Elements</li>
                     </ul>
                 </div><!-- .breadcrumbs -->
             </div>
@@ -30,13 +29,13 @@
         <div class="row elements-wrap">
             <div class="col-12">
                 <header class="entry-header elements-heading">
-                    <h2 class="entry-title">Botões</h2>
+                    <h2 class="entry-title">Buttons</h2>
                 </header>
 
                 <div class="entry-content elements-container">
-                    <a href="#" class="button gradient-bg">Leia Mais</a>
-                    <a href="#" class="button dark">Leia Mais</a>
-                    <a href="#" class="button">Leia Mais</a>
+                    <a href="#" class="button gradient-bg">Read More</a>
+                    <a href="#" class="button dark">Read More</a>
+                    <a href="#" class="button">Read More</a>
                 </div>
             </div>
         </div>
@@ -307,6 +306,8 @@
 
     {% include 'subscribe.html' %}
 
+    <!-- .site-footer -->
     {% include 'footer.html' %}
-</body>
-</html>
+    <!-- end .site-footer -->
+
+{% endblock %}

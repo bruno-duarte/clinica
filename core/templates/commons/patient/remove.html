@@ -1,0 +1,28 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="booking-item-wrap">
+                                    <p>Tem certeza que deseja remover seus dados?</p>
+                                </div>
+                                <!-- Profile Settings Form -->
+                                <form method="post" autocomplete="off">
+                                    {% csrf_token %}
+                                    <input id="first_name" name="first_name" type="hidden" class="form-control" value="{{ user.first_name }}">
+                                    <input id="last_name" name="last_name" type="hidden" class="form-control" value="{{ user.last_name }}">
+                                    <input id="data_nascimento" name="data_nascimento" type="hidden" class="form-control datetimepicker" value="{{ user.data_nascimento }}">
+                                    <input id="email" name="email" type="hidden" class="form-control" value="{{ user.email }}">
+                                    <input id="telefone" name="telefone" type="hidden" value="{{ user.telefone }}" class="form-control">
+                                    <input type="hidden" id="is_active" name="is_active" value="False">
+                                    <div class="submit-section text-left">
+                                        <button name="form" type="submit" class="btn btn-danger submit-btn">Remover</button>
+                                    </div>
+                                </form>
+                                <!-- /Profile Settings Form -->
+                                
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

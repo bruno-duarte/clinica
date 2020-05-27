@@ -1,12 +1,11 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-{% include 'header.html' %}
+{% block content %}
 <body class="single-page">
     <header class="site-header">
-        <!-- .site-navigation -->
-            {% include 'navigation.html' %}
-        <!-- .site-navigation -->
+        <!-- .nav-bar -->
+        {% include 'navigation.html' %}
+        <!-- end .nav-bar -->
 
         <div class="container">
             <div class="row">
@@ -31,7 +30,7 @@
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-lg-6">
-                    <h2>MedArt History</h2>
+                    <h2>Nossa História</h2>
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. Nulla facilisi. Sed est risus, laoreet et quam non, viverra accumsan leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. Curabitur ut augue finibus, luctus tortor at, ornare erat. </p>
 
@@ -45,11 +44,11 @@
         </div>
     </div>
 
-    <div class="faq-stuff" style="background: url('{% static 'images/faq-bg.jpg' %}') no-repeat;">
+    <div class="faq-stuff">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2>Faq & Stuff</h2>
+                    <h2>FAQ & Recursos</h2>
                 </div>
 
                 <div class="col-12 col-lg-6 mb-5 mb-lg-0">
@@ -114,17 +113,17 @@
                             <img src="{{ m.imagem.thumb.url }}" alt="{{ m.get_full_name }}">
 
                             <h4>{{ m.get_full_name }}</h4>
-                            <h5>{{ m.formacao }}</h5>
+                            <h6>{{ m.formacao }}</h6>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-
     {% include 'subscribe.html' %}
 
+    <!-- .site-footer -->
     {% include 'footer.html' %}
-    
-</body>
-</html>
+    <!-- end .site-footer -->
+
+{% endblock %}

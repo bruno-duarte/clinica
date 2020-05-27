@@ -1,0 +1,855 @@
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html> 
+<html lang="pt-br">
+    
+<!-- Mirrored from dreamguys.co.in/demo/doccure/doctor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:06:49 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Clínica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    
+    <!-- Favicons -->
+    <link href="{% static 'images/favicon.png' %}" rel="icon">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.min.css' %}">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    
+    <!-- Functionality -->
+    <script src="{% static 'js/functionality.js' %}"></script> 
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="{% static 'js/html5shiv.min.js' %}"></script>
+        <script src="{% static 'js/respond.min.js' %}"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+    
+        <!-- Header -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg header-nav">
+                <div class="navbar-header">
+                    <a href="{% url 'user' %}" class="navbar-brand logo">
+                        <img src="{% static 'images/logo.png' %}" class="img-fluid" alt="Logo">
+                    </a>
+
+                    <ul class="nav header-navbar-mbl user-menu">
+                        {% if not user.is_staff %}
+                        <!-- Notifications -->
+                        <li class="nav-item dropdown noti-dropdown">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <i class="far fa-bell"></i> 
+                                {% if total_notificacoes > 0 %}
+                                <span class="badge badge-pill">{{ total_notificacoes }}</span>
+                                {% endif %}
+                            </a>
+                            <div class="dropdown-menu notifications dropdown-menu-right">
+                                <div class="topnav-dropdown-header">
+                                    <span class="notification-title">Notificações</span>
+                                    {% if total_notificacoes > 0 %}
+                                    <a href="javascript:void(0)" class="clear-noti"> Limpar tudo </a>
+                                    {% endif %}
+                                </div>
+                                <div class="noti-content">
+                                    <ul class="notification-list">
+                                        {% for n in notificacoes %}
+                                        <li class="notification-message">
+                                            <a href="{% url 'confirm' n.consulta.id %}">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <p class="noti-details">{{ n.mensagem }} <strong>clique aqui para confirmar ou desistir</strong></p>
+                                                        <p class="noti-time"><span class="notification-time">Há 4 minutos</span></p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% if total_notificacoes > 0 %}
+                                <div class="topnav-dropdown-footer">
+                                    <a href="{% url 'notification' user.id %}">Todas notificações</a>
+                                </div>
+                                {% else %}
+                                <div class="topnav-dropdown-footer">
+                                    <a href="#">Sem notificações.</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </li>
+                        <!-- /Notifications -->
+                        {% endif %}
+                        
+                    </ul>
+                </div>
+                      
+                <ul class="nav header-navbar-rht user-menu">
+                    {% if not user.is_staff %}
+                    <!-- Notifications -->
+                    <li class="nav-item dropdown noti-dropdown">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <i class="far fa-bell"></i> 
+                            {% if total_notificacoes > 0 %}
+                            <span class="badge badge-pill">{{ total_notificacoes }}</span>
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu notifications dropdown-menu-right">
+                            <div class="topnav-dropdown-header">
+                                <span class="notification-title">Notificações</span>
+                                {% if total_notificacoes > 0 %}
+                                <a href="javascript:void(0)" class="clear-noti"> Limpar tudo </a>
+                                {% endif %}
+                            </div>
+                            <div class="noti-content">
+                                <ul class="notification-list">
+                                    {% for n in notificacoes %}
+                                    <li class="notification-message">
+                                        <a href="{% url 'confirm' n.consulta.id %}">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <p class="noti-details">{{ n.mensagem }} <strong>clique aqui para confirmar ou desistir</strong></p>
+                                                    <p class="noti-time"><span class="notification-time">Há 4 minutos</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% if total_notificacoes > 0 %}
+                            <div class="topnav-dropdown-footer">
+                                <a href="{% url 'notification' user.id %}">Todas notificações</a>
+                            </div>
+                            {% else %}
+                            <div class="topnav-dropdown-footer">
+                                <a href="#">Sem notificações.</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </li>
+                    <!-- /Notifications -->
+                    {% endif %}
+                    
+                    {% if user.is_staff %}
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown has-arrow logged-item">
+                        {% if user.imagem %}
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="{{ user.imagem.url }}" width="31" alt="{{ user.get_full_name }}">
+                            </span>
+                        </a>
+                        {% else %}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="user-img">
+                                <div class="small-avatar">
+                                    {% iniciais_nome user.id as iniciais %}
+                                    <p class="user-avatar">{{ iniciais }}</p>
+                                </div>
+                            </span>
+                        </a>
+                        {% endif %}
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="user-header">
+                                {% if user.imagem %}
+                                <div class="avatar avatar-sm">
+                                    <img src="{{ user.imagem.url }}" alt="User Image" class="avatar-img rounded-circle">
+                                </div>
+                                {% else %}
+                                <div class="small-avatar">
+                                    {% iniciais_nome user.id as iniciais %}
+                                    <p class="user-avatar-down">{{ iniciais }}</p>
+                                </div>
+                                {% endif %}
+                                <div class="user-text">
+                                    <h6>{{ user.get_full_name }}</h6>
+                                    <p class="text-muted mb-0">Médico</p>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="{% url 'user' %}">Painel</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
+                        </div>
+                    </li>
+                    <!-- /User Menu -->
+                    {% else %}
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown has-arrow logged-item">
+                        {% if user.imagem %}
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="{{ user.imagem.url }}" width="31" alt="{{ user.get_full_name }}">
+                            </span>
+                        </a>
+                        {% else %}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="user-img">
+                                <div class="small-avatar">
+                                    {% iniciais_nome user.id as iniciais %}
+                                    <p class="user-avatar">{{ iniciais }}</p>
+                                </div>
+                            </span>
+                        </a>
+                        {% endif %}
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="user-header">
+                                {% if user.imagem %}
+                                <div class="avatar avatar-sm">
+                                    <img src="{{ user.imagem.url }}" alt="User Image" class="avatar-img rounded-circle">
+                                </div>
+                                {% else %}
+                                <div class="small-avatar">
+                                    {% iniciais_nome user.id as iniciais %}
+                                    <p class="user-avatar-down">{{ iniciais }}</p>
+                                </div>
+                                {% endif %}
+                                <div class="user-text">
+                                    <h6>{{ user.get_full_name }}</h6>
+                                    <p class="text-muted mb-0">Paciente</p>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="{% url 'user' %}">Painel</a>
+                            <a class="dropdown-item" href="{% url 'profile' user.id %}">Configurações</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
+                        </div>
+                    </li>
+                    <!-- /User Menu -->
+                    {% endif %}
+                    
+                </ul>
+            </nav>
+        </header>
+        <!-- /Header -->
+        
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-bar">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-md-12 col-12">
+                        <nav aria-label="breadcrumb" class="page-breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'user' %}">Início</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Painel</li>
+                            </ol>
+                        </nav>
+                        <h2 class="breadcrumb-title">Painel</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Breadcrumb -->
+        
+        {% if user.is_staff %}
+        <!-- Page Content -->
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    
+                    <!-- Profile Sidebar -->
+                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                        <div class="profile-sidebar">
+                            <div class="widget-profile pro-widget-content">
+                                <div class="profile-info-widget">
+                                    {% if user.imagem %}
+                                    <a href="#" class="booking-doc-img">
+                                        <img src="{{ user.imagem.url }}" alt="User Image">
+                                    </a>
+                                    {% else %}
+                                    <a href="#" class="booking-doc-div">
+                                        <div class="big-avatar">
+                                            {% iniciais_nome user.id as iniciais %}
+                                            <p class="big-user-avatar">{{ iniciais }}</p>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                    <div class="profile-det-info">
+                                        <h3>Dr. {{ user.get_full_name }}</h3>
+                                        
+                                        <div class="patient-details">
+                                            <h5 class="mb-0">{{ medico.especialidade }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-widget">
+                                <nav class="dashboard-menu">
+                                    <ul>
+                                        {% caminho request.path as current_url %}
+                                        {% if '/user' in current_url or '/today-appointments/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'user' %}">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Painel</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'user' %}">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Painel</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if '/appointments/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'appointments' user.id %}">
+                                                <i class="fas fa-calendar-check"></i>
+                                                <span>Todas Consultas</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'appointments' user.id %}">
+                                                <i class="fas fa-calendar-check"></i>
+                                                <span>Todas Consultas</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if '/patients/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'patients' user.id %}">
+                                                <i class="fas fa-user-injured"></i>
+                                                <span>Meus Pacientes</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'patients' user.id %}">
+                                                <i class="fas fa-user-injured"></i>
+                                                <span>Meus Pacientes</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if '/change-password/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Alterar Senha</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Alterar Senha</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        <li>
+                                            <a href="{% url 'logout' %}">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span>Sair</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- /Profile Sidebar -->
+                    </div>
+
+        {% else %}
+        <!-- Page Content -->
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    
+                    <!-- Profile Sidebar -->
+                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                        <div class="profile-sidebar">
+                            <div class="widget-profile pro-widget-content">
+                                <div class="profile-info-widget">
+                                    {% if user.imagem %}
+                                    <a href="#" class="booking-doc-img">
+                                        <img src="{{ user.imagem.url }}" alt="User Image">
+                                    </a>
+                                    {% else %}
+                                    <a href="#" class="booking-doc-div">
+                                        <div class="big-avatar">
+                                            {% iniciais_nome user.id as iniciais %}
+                                            <p class="big-user-avatar">{{ iniciais }}</p>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                    <div class="profile-det-info">
+                                        <h3>{{ user.get_full_name }}</h3>
+                                        <div class="patient-details">
+                                            {% calcula_idade user.id as idade %}
+                                            {% mostra_data_nascimento user.id as data_nascimento %}
+                                            <h5><i class="fas fa-birthday-cake"></i> {{ data_nascimento }}, {{ idade }} anos</h5>
+                                            <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Ceará, BRA</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-widget">
+                                <nav class="dashboard-menu">
+                                    <ul>
+                                        {% caminho request.path as current_url %}
+                                        {% if '/user' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'user' %}">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Painel</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'user' %}">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Painel</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if '/booking/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'booking' user.id %}">
+                                                <i class="fas fa-calendar-check"></i>
+                                                <span>Agendar Consulta</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'booking' user.id %}">
+                                                <i class="fas fa-calendar-check"></i>
+                                                <span>Agendar Consulta</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if '/profile/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'profile' user.id %}">
+                                                <i class="fas fa-user-cog"></i>
+                                                <span>Configurações</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'profile' user.id %}">
+                                                <i class="fas fa-user-cog"></i>
+                                                <span>Configurações</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if '/remove/' in current_url %}
+                                        {% tem_consulta user.id as cons %}
+                                        {% if not cons %}
+                                        <li class="active">
+                                            <a href="{% url 'remove' user.id %}">
+                                                <i class="fas fa-trash"></i>
+                                                <span>Remover Dados</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% else %}
+                                        {% tem_consulta user.id as cons %}
+                                        {% if not cons %}
+                                        <li>
+                                            <a href="{% url 'remove' user.id %}">
+                                                <i class="fas fa-trash"></i>
+                                                <span>Remover Dados</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if '/change-password/' in current_url %}
+                                        <li class="active">
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Alterar Senha</span>
+                                            </a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url 'change_password' %}">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Alterar Senha</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        <li>
+                                            <a href="{% url 'logout' %}">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span>Sair</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- / Profile Sidebar -->
+        {% endif %}
+                    
+                    {% block content %} {% endblock %}
+
+                </div>
+            </div>
+        </div>      
+        <!-- /Page Content -->
+        
+
+    {% include 'footer.html' %} 
+
+    {% for c in todas_consultas %}
+    <!-- Appointment Details Modal -->
+    <div class="modal fade custom-modal" id="appt_details{{c.id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhes da Consulta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="info-details">
+                        <li>
+                            <div class="details-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="title">#CON000{{ c.id }}</span>
+                                        <span class="text">{{ c.data }} {{ c.hora }} AM</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-right">
+                                            <button type="button" class="btn bg-primary-light btn-sm" id="topup_status" data-dismiss="modal">Ok</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="title">Status:</span>
+                            {% if c.expirada %}
+                            <span class="text">Expirada</span>
+                            {% else %}
+                            <span class="text">{{ c.estado }}</span>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="title">Data da Consulta:</span>
+                            <span class="text">{{ c.data }}</span>
+                        </li>
+                        {% if c.estado == 'Cancelada' %}
+                        <li>
+                            <span class="title">Motivo do Cancelamento:</span>
+                            <span class="text">{{ c.motivo_cancelamento }}</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Appointment Details Modal -->
+    {% endfor %}
+
+    {% for c in prox_consultas %}
+    <!-- Appointment Details Modal -->
+    <div class="modal fade custom-modal" id="consulta{{c.id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhes da Consulta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="info-details">
+                        <li>
+                            <div class="details-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="title">#CON000{{ c.id }}</span>
+                                        <span class="text">{{ c.data }} {{ c.hora }} AM</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-right">
+                                            <button type="button" class="btn bg-primary-light btn-sm" id="topup_status" data-dismiss="modal">Ok</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="title">Status:</span>
+                            {% if c.expirada %}
+                            <span class="text">Expirada</span>
+                            {% else %}
+                            <span class="text">{{ c.estado }}</span>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="title">Data da Consulta:</span>
+                            <span class="text">{{ c.data }}</span>
+                        </li>
+                        {% if c.estado == 'Cancelada' %}
+                        <li>
+                            <span class="title">Motivo do Cancelamento:</span>
+                            <span class="text">{{ c.motivo_cancelamento }}</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Appointment Details Modal -->
+    {% endfor %}
+
+    {% for c in consultas_paciente %}
+    <!-- Appointment Details Modal -->
+    <div class="modal fade custom-modal" id="appt_summary{{c.id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalhes da Consulta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="info-details">
+                        <li>
+                            <!-- Booking Doctor Info -->
+                            <div class="booking-doc-info">
+                                {% if c.medico.imagem %}
+                                <a href="#" class="booking-doc-img">
+                                    <img src="{{ c.medico.imagem.thumb.url }}" alt="User Image">
+                                </a>
+                                {% else %}
+                                <a href="#" class="booking-doc-img">
+                                    <div class="doctor-squared-avatar">
+                                        {% iniciais_nome c.medico.id as iniciais %}
+                                        <p class="user-avatar">{{ iniciais }}</p>
+                                    </div>
+                                </a>
+                                {% endif %}
+                                <div class="booking-info">
+                                    <h4><a href="doctor-profile.html">{{ c.medico.get_full_name }}</a></h4>
+                                    <div class="rating">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span class="d-inline-block average-rating">35</span>
+                                    </div>
+                                    <div class="clinic-details">
+                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="details-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="title">#CON000{{ c.id }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="title">Data da Consulta:</span>
+                                    <span class="text">{{ c.data }} {{ c.hora }} AM</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="title">Status:</span>
+                            {% if c.expirada %}
+                            <span class="text">Expirada</span>
+                            {% else %}
+                            <span class="text">{{ c.estado }}</span>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="title">Data do Agendamento:</span>
+                            <span class="text">{{ c.criado }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Appointment Details Modal -->
+    {% endfor %}
+
+    {% for m in medicos %}
+    {% for h in horarios %}
+    <!-- Add Category Modal -->
+    <div class="modal custom-modal fade" id="add_new_event{{m.id}}{{h.id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><strong>Resumo da Consulta</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" autocomplete="off">
+                        {% csrf_token %}
+                        <!-- Booking Doctor Info -->
+                        <div class="booking-doc-info">
+                            {% if m.imagem %}
+                            <a href="#" class="booking-doc-img">
+                                <img src="{{ m.imagem.thumb.url }}" alt="User Image">
+                            </a>
+                            {% else %}
+                            <a href="#" class="booking-doc-img">
+                                <div class="doctor-squared-avatar">
+                                    {% iniciais_nome m.id as iniciais %}
+                                    <p class="user-avatar">{{ iniciais }}</p>
+                                </div>
+                            </a>
+                            {% endif %}
+                            <div class="booking-info">
+                                <h4><a href="doctor-profile.html">{{ m.get_full_name }}</a></h4>
+                                <div class="rating">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="d-inline-block average-rating">35</span>
+                                </div>
+                                <div class="clinic-details">
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Booking Doctor Info -->
+                        <div class="booking-summary">
+                            <div class="booking-item-wrap">
+                                <ul class="booking-date">
+                                    <li><strong>Data</strong> <span>{{ data }}</span></li>
+                                    <li><strong>Horário</strong> <span>{{ h.horario }}</span></li>
+                                </ul>   
+                            </div>
+                        </div>
+                        <input type="hidden" id="data" name="data" value="{{ str_data }}">
+                        <input type="hidden" id="hora" name="hora" value="{{ h.id }}">
+                        <input type="hidden" id="estado" name="estado" value="Agendada">
+                        <input type="hidden" id="medico" name="medico" value="{{ m.id }}">
+                        <input type="hidden" id="paciente" name="paciente" value="{{ user.id }}">
+                        <input type="hidden" id="ativo" name="ativo" value="True">
+                        {% mesmo_usuario str_data h.id 'Agendada' m.id user.id as mesmo_pac %}
+                        {% if mesmo_pac %}
+                        <p>Você já possui uma consulta agendada para esse dia e horário!</p>
+                        {% else %}
+                        <div class="submit-section text-center">
+                            <button name="form" type="submit" class="btn btn-primary save-category submit-btn">Confirmar</button>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    <!-- /Add Category Modal -->
+
+    {% for m in medicos %}
+    {% for h in horarios %}
+    <!-- Add Category Modal -->
+    <div class="modal custom-modal fade" id="lista_espera{{m.id}}{{h.id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><strong>Resumo do Agendamento</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" autocomplete="off">
+                        {% csrf_token %}
+                        <!-- Booking Doctor Info -->
+                        <div class="booking-doc-info">
+                            {% if m.imagem %}
+                            <a href="doctor-profile.html" class="booking-doc-img">
+                                <img src="{{ m.imagem.thumb.url }}" alt="User Image">
+                            </a>
+                            {% else %}
+                            <a href="#" class="booking-doc-img">
+                                <div class="doctor-squared-avatar">
+                                    {% iniciais_nome m.id as iniciais %}
+                                    <p class="user-avatar">{{ iniciais }}</p>
+                                </div>
+                            </a>
+                            {% endif %}
+                            <div class="booking-info">
+                                <h4><a href="doctor-profile.html">{{ m.get_full_name }}</a></h4>
+                                <div class="rating">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="d-inline-block average-rating">35</span>
+                                </div>
+                                <div class="clinic-details">
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Booking Doctor Info -->
+                        <div class="booking-summary">
+                            <div class="booking-item-wrap">
+                                <ul class="booking-date">
+                                    <li><strong>Data</strong> <span>{{ data }}</span></li>
+                                    <li><strong>Horário</strong> <span>{{ h.horario }}</span></li>
+                                </ul>   
+                            </div>
+                        </div>
+                        <input type="hidden" id="data" name="data" value="{{ str_data }}">
+                        <input type="hidden" id="hora" name="hora" value="{{ h.id }}">
+                        <input type="hidden" id="estado" name="estado" value="Espera">
+                        <input type="hidden" id="medico" name="medico" value="{{ m.id }}">
+                        <input type="hidden" id="paciente" name="paciente" value="{{ user.id }}">
+                        <input type="hidden" id="ativo" name="ativo" value="True">
+                        {% mesmo_usuario str_data h.id 'Agendada' m.id user.id as mesmo_pac %}
+                        {% if mesmo_pac %}
+                        <p class="text-danger">Você já possui uma consulta agendada para esse dia e horário!</p>
+                        {% else %}
+                        <div class="submit-section text-center">
+                            <button name="form" type="submit" class="btn btn-primary save-category submit-btn">Confirmar</button>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    <!-- /Add Category Modal -->
+</body>
+
+<!-- Mirrored from dreamguys.co.in/demo/doccure/doctor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Dec 2019 21:06:54 GMT -->
+</html>

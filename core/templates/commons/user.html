@@ -1,0 +1,15 @@
+{% extends './base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+	{% if user.is_authenticated %}
+		{% if user.is_staff %}
+			{% include './doctor/home.html' %}
+		{% else %}
+			{% include './patient/home.html' %}
+			<a href="{% url 'booking' user.id %}" class="float">
+				<i class="fa fa-plus my-float"></i>
+			</a>
+		{% endif %}
+	{% endif %}
+{% endblock %}

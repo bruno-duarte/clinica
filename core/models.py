@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from stdimage.models import StdImageField
-from datetime import datetime
+from datetime import datetime, date
 import uuid
 
 from django.db import models
@@ -31,7 +31,6 @@ class SingletonModel(models.Model):
 	def save(self, *args, **kwargs):
 		self.pk = 1
 		super(SingletonModel, self).save(*args, **kwargs)
-
 		self.set_cache()
 
 	@classmethod
@@ -48,13 +47,16 @@ class SiteSettings(SingletonModel):
 	endereco = models.CharField(max_length=255, default='Mitlton Str. 26-27 London UK')
 	telefone = models.CharField(max_length=255, default='+5585999999999')
 	email = models.EmailField(max_length=255, default='clinica@email.com')
-	support = models.EmailField(default='support@email.com')
+	suporte = models.EmailField(default='support@email.com')
 	account_sid = models.CharField(max_length=255, default='ACbcad883c9c3e9d9913a715557dddff88')
 	auth_token = models.CharField(max_length=255, default='abd4d45dd57dd79b86dd51df2e2a6cd7')
 
 	class Meta:
 		verbose_name = 'Configuração do Site'
-		verbose_name_plural = 'Configurações do Site'
+		verbose_name_plural = 'Configurações do Site' 
+
+	def __str__(self):
+		return 'Configurações'
 
 
 class Base(models.Model):
@@ -101,8 +103,6 @@ class Consulta(Base):
 		('Cancelada', 'Cancelada'),
 		('Espera', 'Espera'),
 		('Realizada', 'Realizada'),
-		('Expirada', 'Expirada'),
-		('Análise', 'Análise'),
 	)
 	data = models.DateField('Data da Consulta')
 	hora = models.ForeignKey(
@@ -130,6 +130,15 @@ class Consulta(Base):
 		'Motivo do Cancelamento', max_length=100, null=True, blank=True
 	)
 
+	@property
+	def expirada(self):
+		hoje = date.today()
+		hora = int(self.hora.horario[0] + self.hora.horario[1])
+		agora = datetime.now()
+		if hoje == self.data and self.estado != 'Realizada':
+			return agora.hour > hora
+		return hoje > self.data and self.estado != 'Realizada'
+
 	class Meta:
 		verbose_name = 'Consulta'
 		verbose_name_plural = 'Consultas'
@@ -137,14 +146,19 @@ class Consulta(Base):
 
 class Pessoa(AbstractUser):
 
+	CHOICES = (
+		('Masculino', 'Masculino'),
+		('Feminino', 'Feminino'),
+	)
 	is_staff = models.BooleanField('Membro da equipe', default=False)
 	cpf = models.CharField('CPF', max_length=15, unique=True)
-	telefone = models.CharField('Telefone', max_length=15)
+	telefone = models.CharField('Telefone', max_length=17)
 	email = models.EmailField('E-mail', unique=True)
-	imagem = StdImageField('Imagem', upload_to=get_file_path, variations={
+	imagem = StdImageField('Imagem', upload_to=get_file_path, null=True, blank=True, variations={
 		'thumb': {'width': 264, 'height': 276, 'crop': True}
 	})
 	formacao = models.CharField('Formacao', max_length=30, default='')
+	sexo = models.CharField('Sexo',  max_length=9, choices=CHOICES, default='Masculino')
 
 	class Meta:
 		abstract = True
@@ -185,7 +199,7 @@ class CustomUsuario(Pessoa):
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
 	def __str__(self):
-		return self.cpf
+		return self.first_name
 
 	objects = UsuarioManager()
 
@@ -226,7 +240,7 @@ class Medico(CustomUsuario):
 		null=True, 
 		blank=True
 	)
-	consultas = models.ManyToManyField(Consulta, related_name='consultas_medico_set')
+	consultas = models.ManyToManyField(Consulta, related_name='consultas_medico_set', blank=True)
 
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'especialidade']
 
@@ -338,7 +352,8 @@ def cria_notificacao(sender, instance, **kwargs):
 	if instance.estado == 'Cancelada':
 		query = Consulta.objects.filter(
 			Q(data__exact=instance.data),
-			Q(hora__exact=instance.hora)
+			Q(hora__exact=instance.hora),
+			Q(estado__exact='Espera')
 		)
 		if query.count() > 0:
 			dias_semana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui','Sex', 'Sab']
@@ -362,7 +377,11 @@ def atualiza_consultas_medico(sender, instance, **kwargs):
 
 
 def marca_como_lida(sender, instance, **kwargs):
+<<<<<<< HEAD
 	if instance.estado == 'Agendada':
+=======
+	if instance.estado == 'Agendada' or instance.estado == 'Cancelada':
+>>>>>>> release/v1.1.0
 		try:
 			notificacao = Notificacao.objects.get(consulta=instance)
 			if notificacao:
