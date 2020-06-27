@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 from datetime import datetime
 from weasyprint import HTML, CSS
-from background_task import background
 
 from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView
