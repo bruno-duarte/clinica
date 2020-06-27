@@ -8,4 +8,8 @@ __pycache__
 
 .idea
 
-staticfiles/*
+bin
+
+lib
+
+staticfiles
