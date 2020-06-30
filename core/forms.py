@@ -90,12 +90,13 @@ class SignUpForm(UserCreationForm):
 	cpf = forms.CharField(max_length=11, help_text='O CPF é obrigatório!')
 	telefone = forms.CharField(max_length=15, required=False, help_text='Optional')
 	email = forms.EmailField(max_length=254, help_text='Campo obrigatório')
+	sexo = forms.CharField(max_length=10, help_text='Optional')
 	data_nascimento = forms.DateField(help_text='Campo obrigatório!')
 
 	class Meta:
 		model = Paciente
 		fields = [ 'username', 'first_name', 'last_name', 'cpf', 'telefone', 'email', 
-		           'data_nascimento', 'password1', 'password2', ]
+		           'sexo', 'data_nascimento', 'password1', 'password2', ]
 
 
 class ProfileForm(forms.ModelForm):

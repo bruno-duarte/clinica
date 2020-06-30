@@ -6,7 +6,6 @@ window.onload = function() {
     });
 };
 
-
 function validaData() {  
 	var status = false;  
 	var data_consulta = document.getElementById("data").value;
@@ -29,7 +28,6 @@ function validaData() {
 	    
 	return status;  
 } 
-
 
 function preCarregamento() {
     perfil = document.getElementById('user-image');
@@ -75,8 +73,8 @@ function decrementaData() {
 
 function inicia() {
     var imagem = document.getElementById('imagem');
-    botao_incremento = document.getElementById('direita');
-    botao_decremento = document.getElementById('esquerda');
+    var botao_incremento = document.getElementById('direita');
+    var botao_decremento = document.getElementById('esquerda');
     botao_incremento.addEventListener('click', incrementaData);
     botao_decremento.addEventListener('click', decrementaData);
     imagem.addEventListener('change', preCarregamento);

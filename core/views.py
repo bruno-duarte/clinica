@@ -147,6 +147,14 @@ class SignupView(CreateView):
 	success_url = reverse_lazy('signup')
 	template_name = 'commons/signup.html'
 
+	def form_valid(self, form, *args, **kwargs):
+		messages.success(self.request, 'Usário cadastrado com sucesso!')
+		return super(SignupView, self).form_valid(form, *args, **kwargs)
+
+	def form_invalid(self, form, *args, **kwargs):
+		messages.error(self.request, 'Erro ao cadastrar usuário')
+		return super(SignupView, self).form_invalid(form, *args, **kwargs)
+
 
 class ProfileView(UpdateView):
 	

@@ -158,7 +158,7 @@ class Pessoa(AbstractUser):
 		'thumb': {'width': 264, 'height': 276, 'crop': True}
 	})
 	formacao = models.CharField('Formacao', max_length=30, default='')
-	sexo = models.CharField('Sexo',  max_length=9, choices=CHOICES, default='Masculino')
+	sexo = models.CharField('Sexo',  max_length=9, choices=CHOICES)
 
 	class Meta:
 		abstract = True
@@ -200,6 +200,10 @@ class CustomUsuario(Pessoa):
 
 	def __str__(self):
 		return self.first_name
+
+	class Meta:
+		verbose_name = 'Usuário'
+		verbose_name_plural = 'Usuários'
 
 	objects = UsuarioManager()
 
