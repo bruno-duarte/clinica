@@ -1006,7 +1006,7 @@ ul.tabs-nav .tab-nav.active {
     opacity: 0.8;
 }
 
-.modal-confirm .icon-box {
+.modal-confirm .icon-box  {
     color: #fff;        
     width: 47px;
     height: 47px;
@@ -1028,6 +1028,27 @@ ul.tabs-nav .tab-nav.active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.icon-alert {
+    color: #fff;        
+    width: 57px;
+    height: 57px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 3px solid #fff;
+    padding: 15px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.modal-confirm .icon-alert i {
+    font-size: 32px;
+    margin: -9px 0 0 -7px;
 }
 
 .modal-confirm .btn {

@@ -41,7 +41,7 @@ determinado período.
 - Utiliza o framework Django
 - Trabalha o uso de Class Based View
 - Utiliza User Model Customizado
-- Uso de Template tags
+- Uso de template tags
 - Django admin com filtros customizados
 - Utiliza Padrão Arquitetural e de Projeto
 

@@ -114,26 +114,23 @@
                     <div class="appointment-box">
                         <h2 class="d-flex align-items-center">Agende uma consulta</h2>
 
-                        <form class="d-flex flex-wrap justify-content-between">
+                        <form class="d-flex flex-wrap justify-content-between" id="appointment-form" action="{% url 'index' %}" method="get">
+                            {% csrf_token %}
                             <select class="select-department">
                                 <option value="value1">Especialidade</option>
                                 {% for e in especialidades %}
                                     <option>{{ e.nome }}</option>
                                 {% endfor %}
                             </select>
-
                             <select class="select-doctor">
                                 <option>Médico</option>
                                 {% for m in medicos %}
-                                <option>{{ m.first_name }}</option>
+                                    <option>{{ m.first_name }}</option>
                                 {% endfor %}
                             </select>
-
                             <input type="text" placeholder="Nome">
-
                             <input type="number" placeholder="Telefone">
-
-                            <input class="button gradient-bg" type="submit" value="Agendar">
+                            <input type="button" class="button gradient-bg" value="Agendar" data-toggle="modal" data-target="#appointment-modal">
                         </form>
                     </div>
 
@@ -320,7 +317,30 @@
             </div>
         </div>
     </div>
+
+    <!-- .subscribe-banner -->
     {% include 'subscribe.html' %}
+    <!-- end .subscribe-bannerr -->
+
+    <!-- Appointment modal -->
+    <div class="modal fade" id="appointment-modal">
+        <div class="modal-dialog modal-dialog-centered modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Cadastre-se ou faça seu login</h4> 
+                    <p>Para agendar uma consulta você precisa estar cadastrado e logado.</p>
+                    <button class="btn btn-success"><a href="{% url 'signup' %}"><strong>Cadastre-se</strong></a></button>
+                    <a style="color: #434e65; text-decoration: underline; padding: 13px; position: absolute; font-size: 14px;" href="{% url 'login' %}">Fazer login</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- .site-footer -->
     {% include 'footer.html' %}

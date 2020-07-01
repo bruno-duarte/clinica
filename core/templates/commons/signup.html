@@ -75,14 +75,14 @@
                     {% endfor %}
                 {% endfor %}
             {% endif %}
-            <button id="botao-signup" type="submit" class="button gradient-bg"  data-toggle="modal" data-target="#myModal">Cadastrar</button>
+            <button id="signup-btn" type="submit" class="button gradient-bg" data-toggle="modal" data-target="#signup-modal">Cadastrar</button>
         </form>
     </div>
 
     <!-- Modal HTML -->
     {% if not form.errors %}
         {% if messages %}
-            <div class="modal fade" id="myModal">
+            <div class="modal fade" id="signup-modal">
                 <div class="modal-dialog modal-dialog-centered modal-confirm">
                     <div class="modal-content">
                         <div class="modal-header">
