@@ -71,12 +71,35 @@ function decrementaData() {
     } 
 }
 
+$('.patient-avatar').on('load', function() {
+    
+});
+
 function inicia() {
+    var colors = [
+        '#53ff54',
+        '#76bae9',
+        '#ff7ee6',
+        '#0067fe',
+        '#fb8229',
+        '#20c0f3'
+    ]
+
     var imagem = document.getElementById('imagem');
     var botao_incremento = document.getElementById('direita');
     var botao_decremento = document.getElementById('esquerda');
+    
+    var avatars = document.getElementsByClassName('patient-avatar');
+
+    for (let i = 0; i < avatars.length; i++) {
+        var index = Math.floor(Math.random() * 6);
+        var backgroundColor = colors[index];
+        avatars[i].style.backgroundColor = backgroundColor;
+    }
+
     botao_incremento.addEventListener('click', incrementaData);
     botao_decremento.addEventListener('click', decrementaData);
+    
     imagem.addEventListener('change', preCarregamento);
 }
 

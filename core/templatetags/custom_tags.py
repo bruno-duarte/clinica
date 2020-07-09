@@ -94,7 +94,11 @@ def total_consultas_realizadas(usuario):
 def porcentagem_consultas(usuario):
 	todas_consultas = Consulta.objects.all().count()
 	consultas_usuario = Consulta.objects.filter(medico__exact=usuario).count()
-	return int((consultas_usuario/todas_consultas)*100)
+	try:
+		p = int((consultas_usuario/todas_consultas)*100)
+	except ZeroDivisionError:
+		p = 0
+	return p
 
 
 @register.simple_tag

@@ -9543,6 +9543,26 @@ html.menu-opened body {
         padding-top: 18px;
         padding-left: 18px;
     }
+    .booking-medium-avatar {
+        position: relative;
+        border-radius: 50%;
+        background: rgba(88,125,228,1);
+        margin-top: 50px;
+        margin-bottom: -40px;
+        width: 100px;
+        height: 100px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .booking-medium-avatar p.med-user-letters {
+        color: white;
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 22px;
+        padding-left: 18px;
+    }
     .voice-call-avatar .call-avatar {
         height: 80px;
         width: 80px;
