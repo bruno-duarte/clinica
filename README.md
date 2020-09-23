@@ -1,7 +1,7 @@
 # aps-clinica
 
 Esse projeto foi desenvolvido como trabalho prático para a disciplina de Análise e Projeto de Software do curso 
-de Ciência da Computação da Universidade Estadual do Ceará (UECE), semestre 2019.1. O objetivo é desenvolver um
+de Ciência da Computação da Universidade Estadual do Ceará (UECE), semestre 2019.2. O objetivo é desenvolver um
 sistema para uma clínica, que será utilizado pela secretária, pelos médicos e pelos pacientes.
 
 
@@ -12,7 +12,6 @@ sistema para uma clínica, que será utilizado pela secretária, pelos médicos 
 - Utiliza User Model Customizado
 - Uso de template tags
 - Django admin com filtros customizados
-- Utiliza Padrão Arquitetural e de Projeto
 
 ## Getting started
 
