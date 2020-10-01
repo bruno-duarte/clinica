@@ -36,9 +36,10 @@ git clone https://github.com/Bruno-Duarte/aps.git
 2. `virtualenv -p python3 .`
 3. `source bin/activate`
 4. `pip install -r requirements.txt`
-5. `python manage.py migrate`
-6. `python manage.py createsuperuser`
-7. `python manage.py runserver`
+5. `python manage.py makemigrations`
+6. `python manage.py migrate`
+7. `python manage.py createsuperuser`
+8. `python manage.py runserver`
 
 
 ## Deploy e Publicação

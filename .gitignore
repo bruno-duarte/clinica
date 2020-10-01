@@ -8,10 +8,23 @@ __pycache__
 
 .idea
 
+db.sqlite3
+
+Procfile
+
+pyvenv.cfg
+
+runtime.txt
+
 bin
 
 lib
 
+media
+
 staticfiles
 
-media
+cinica/__pycache__
+
+core/migrations
+core/__pycache__
