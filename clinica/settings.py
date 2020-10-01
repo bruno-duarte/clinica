@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'core',
 ]
 
@@ -90,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'clinica',
         'USER': 'root',
-        'PASSWORD': '1245',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '5432',
     }
