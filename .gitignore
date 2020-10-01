@@ -26,5 +26,5 @@ staticfiles
 
 cinica/__pycache__
 
-core/migrations
 core/__pycache__
+core/migrations/__pycache__
