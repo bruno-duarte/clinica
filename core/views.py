@@ -37,7 +37,10 @@ class IndexView(TemplateView):
 		context['medicos'] = Medico.objects.order_by('?').all().filter()[:4]
 		context['horarios'] = Horario.objects.all()
 		context['data_hoje'] = datetime.today()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -73,7 +76,10 @@ class UserView(TemplateView):
 		except IndexError:
 			context['medico'] = []
 		context['data_hoje'] = datetime.today()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 	def get(self, request, *args, **kwargs):
@@ -93,7 +99,10 @@ class AboutView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(AboutView, self).get_context_data(**kwargs)
 		context['medicos'] = Medico.objects.order_by('?').all().filter()[:4]
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -104,7 +113,10 @@ class ServicesView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(ServicesView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.all()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -116,7 +128,10 @@ class NewsView(TemplateView):
 		context = super(NewsView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.order_by('?').all().filter()[:5]
 		context['horarios'] = Horario.objects.all()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -127,7 +142,10 @@ class ContactView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(ContactView, self).get_context_data(**kwargs)
 		context['horarios'] = Horario.objects.all()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -137,7 +155,10 @@ class ElementsView(TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ElementsView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -165,7 +186,10 @@ class ProfileView(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ProfileView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -183,7 +207,10 @@ class ChangePasswordView(views.PasswordChangeView):
 			context['medico'] = medico[0]
 		except IndexError:
 			pass
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -196,7 +223,10 @@ class PrescriptionsView(CreateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(PrescriptionsView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -209,7 +239,10 @@ class MedicalRecordsView(CreateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(MedicalRecordsView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -223,7 +256,10 @@ class BookingView(CreateView):
 	def get_context_data(self, **kwargs):
 		context = super(BookingView, self).get_context_data(**kwargs)
 		context['especialidades'] = Especialidade.objects.filter()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		context['hoje'] = datetime.today()
 		return context
 	
@@ -262,7 +298,10 @@ class BookingResultsView(CreateView):
 		context['esp'] = self.request.GET.get('especialidade')
 		context['horarios'] = Horario.objects.all()
 		context['consultas'] = Consulta.objects.all()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		if 'form' not in context:
 			context['form'] = self.form_class()
 		if 'search_form' not in context:
@@ -280,7 +319,10 @@ class CancelConsultaView(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super(CancelConsultaView, self).get_context_data(**kwargs)
 		context['consultas'] = Consulta.objects.filter(Q(paciente__exact=self.request.user.id))
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -303,7 +345,10 @@ class AppointmentsView(TemplateView):
 		except IndexError:
 			context['medico'] = []
 		context['data_hoje'] = datetime.today()
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -319,7 +364,10 @@ class UpdateConsultaView(UpdateView):
 		context['consultas'] = Consulta.objects.filter(
 			Q(paciente__exact=self.request.user.id)
 		)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 class AllAppointmentsView(TemplateView):
@@ -338,7 +386,10 @@ class AllAppointmentsView(TemplateView):
 			context['medico'] = medico[0]
 		except IndexError:
 			pass
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -373,7 +424,10 @@ class RemoveDataView(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(RemoveDataView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -387,7 +441,10 @@ class NotificationView(TemplateView):
 		context['notificacoes'] = Notificacao.objects.filter(
 			Q(paciente__exact=self.request.user.id)
 		).order_by('criada')
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -409,7 +466,10 @@ class PatientView(TemplateView):
 			context['medico'] = medico[0]
 		except IndexError:
 			pass
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -422,7 +482,10 @@ class ConfirmView(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(ConfirmView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
 
@@ -435,6 +498,9 @@ class DeleteView(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(DeleteView, self).get_context_data(**kwargs)
-		context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		try:
+			context['configuracoes_site'] = SiteSettings.objects.get(pk=1)
+		except SiteSettings.DoesNotExist:
+			pass
 		return context
 
