@@ -10,17 +10,11 @@ __pycache__
 
 db.sqlite3
 
-Procfile
-
 pyvenv.cfg
-
-runtime.txt
 
 bin
 
 lib
-
-media
 
 cinica/__pycache__
 
