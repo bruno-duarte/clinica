@@ -37,7 +37,7 @@
                                                                 <th>Data da Consulta</th>
                                                                 <th>Data de Agen</th>
                                                                 <th>Status</th>
-                                                                <th></th>
+                                                                <th>Ações</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -60,8 +60,8 @@
                                                                         <a href="#">{{ c.medico.get_full_name }} <span>{{ c.medico.especialidade }}</span></a>
                                                                     </h2>
                                                                 </td>
-                                                                <td>{{ c.data }} <span class="d-block text-info">{{ c.hora }}</span></td>
-                                                                <td>{{ c.criado }}</td>
+                                                                <td>{{ c.data|date:'d/m/Y' }} <span class="d-block text-info">{{ c.hora }}</span></td>
+                                                                <td>{{ c.criado|date:'d/m/Y' }}</td>
                                                                 <td>
                                                                     {% if c.estado == 'Agendada' and not c.expirada %}
                                                                     <span class="badge badge-pill bg-success-light">{{ c.estado }}
