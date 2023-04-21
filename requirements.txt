@@ -20,7 +20,7 @@ Pyphen==0.9.5
 python-utils==2.4.0
 pytz==2020.1
 six==1.14.0
-sqlparse==0.3.1
+sqlparse==0.4.4
 static3==0.7.0
 tinycss2==1.0.2
 WeasyPrint==51
